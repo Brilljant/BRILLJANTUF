@@ -18,12 +18,42 @@
             background-color: black;
             padding: 20px;
             border-bottom: 2px solid gray;
+            position: relative; /* Position för absolut placerade element */
         }
 
         h1 {
             margin: 0;
             font-size: 50px;
             color: white;
+        }
+
+        .contact-email {
+            position: absolute;
+            top: 20px; /* Justera avståndet från toppen */
+            left: 20px; /* Justera avståndet från vänster */
+            font-weight: bold; /* Fet stil */
+            font-size: 12px; /* Justera storlek för mindre text */
+            color: white; /* Vit text */
+        }
+
+        .about-button, .terms-button {
+            position: absolute;
+            top: 20px; /* Justera avståndet från toppen */
+            right: 20px; /* Justera avståndet från höger */
+            background-color: transparent;
+            color: white; /* Vit text */
+            border: 2px solid white; /* Vit kant */
+            text-decoration: none; /* Ingen understrykning */
+            border-radius: 5px; /* Rundade kanter */
+            padding: 5px 10px; /* Padding för knappen */
+            font-weight: bold; /* Fet stil */
+            font-size: 12px; /* Justera storlek för mindre text */
+            margin-left: 10px; /* Avstånd mellan knapparna */
+            transition: background-color 0.3s; /* Övergångseffekt */
+        }
+
+        .about-button:hover, .terms-button:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hover */
         }
 
         .container {
@@ -93,7 +123,7 @@
             margin-top: 20px;
         }
 
-        .about-button, .buy-button {
+        .buy-button {
             display: inline-block;
             margin-top: 20px;
             padding: 15px 30px; /* Stretchade knappar */
@@ -104,7 +134,7 @@
             border-radius: 5px; /* Rundade kanter */
         }
 
-        .about-button:hover, .buy-button:hover {
+        .buy-button:hover {
             background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hover */
         }
 
@@ -113,25 +143,45 @@
             font-size: 24px; /* Justera storlek efter behov */
             margin: 20px 0; /* Marginal runt produktnamnet */
         }
+
+        .price {
+            font-weight: bold; /* Fet stil */
+            font-size: 30px; /* Större text för priset */
+            margin: 5px 0; /* Mindre marginal runt priset */
+        }
+
+        .free-shipping {
+            font-size: 12px; /* Mindre text för gratis frakt */
+            margin: 0; /* Ingen marginal */
+        }
+
+        .video-wrapper {
+            position: relative; /* För att positionera videon */
+            display: inline-block; /* Gör så att videon centrerar korrekt */
+            margin: 20px auto; /* Centrera video-wrapper */
+        }
+
+        video {
+            width: 100%; /* Gör videon responsiv */
+            max-width: 800px; /* Maxbredd för bättre presentation */
+            display: block; /* Gör den till blockelement */
+            border: none; /* Ingen kantlinje */
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
+        <div class="contact-email">contactbrilljant@gmail.com</div> <!-- Email tillagd här -->
+        <!-- Placera About Us och Köpvillkor knappar i header -->
+        <a href="about.html" class="about-button">About Us</a>
+        <a href="terms.html" class="terms-button">Köpvillkor</a>
     </header>
 
     <div class="container">
-        <!-- Placera About Us knappen direkt under BRILLJANT -->
-        <div class="about-button">
-            <a href="about.html" style="color: white;">About Us</a>
-        </div>
-
         <img src="sportbrillor.png" alt="Sport Sunglasses" class="product-image active">
         <img src="glasögon.png" alt="Glasses" class="product-image">
-
-        <!-- Produktnamn -->
-        <div class="product-name">BRILLOR .01</div>
 
         <!-- Pilar för navigering -->
         <button class="arrow arrow-left" id="prev">&#10094;</button>
@@ -142,7 +192,12 @@
             <div class="dot" onclick="currentSlide(1)"></div>
         </div>
 
-        <p>Price: 299 kr. Free shipping!</p>
+        <!-- Produktnamn -->
+        <div class="product-name">BRILLOR .01</div>
+
+        <!-- Pris och gratis frakt -->
+        <div class="price">299 kr</div>
+        <p class="free-shipping">Free shipping!</p>
 
         <!-- Buy Now knapp -->
         <div class="buy-button">
@@ -150,14 +205,23 @@
         </div>
     </div>
 
+    <!-- Embed the video -->
+    <div class="video-wrapper">
+        <video id="video" autoplay loop muted preload="auto">
+            <source src="glasögon.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
     <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p> <!-- Email tillagd här -->
     </footer>
 
     <script>
         let currentIndex = 0;
         const images = document.querySelectorAll('.product-image');
         const dots = document.querySelectorAll('.dot');
+        const video = document.getElementById('video');
 
         function showSlide(index) {
             images.forEach((img, i) => {
@@ -182,6 +246,28 @@
             currentIndex = index;
             showSlide(currentIndex);
         }
+
+        // Function to play the video in reverse and then restart
+        function reverseVideo() {
+            const duration = video.duration;
+            let currentTime = duration;
+
+            video.pause(); // Pause the video
+            video.currentTime = currentTime; // Start from the end
+
+            const reversePlayback = setInterval(() => {
+                if (currentTime <= 0) {
+                    clearInterval(reversePlayback);
+                    video.currentTime = 0; // Reset to the start
+                    video.play(); // Play forward again
+                } else {
+                    currentTime -= 0.1; // Adjust speed here
+                    video.currentTime = currentTime;
+                }
+            }, 100); // Adjust speed of reverse playback here
+        }
+
+        video.addEventListener('ended', reverseVideo);
 
         document.getElementById('next').addEventListener('click', nextSlide);
         document.getElementById('prev').addEventListener('click', prevSlide);

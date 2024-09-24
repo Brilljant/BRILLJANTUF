@@ -54,6 +54,20 @@
             background-color: gray;
             color: black;
         }
+
+        .text-content {
+            text-align: left; /* Keep text left-aligned */
+            margin-bottom: 20px; /* Space below the text */
+            font-weight: bold; /* Make the text bold */
+        }
+
+        video {
+            width: 100%; /* Make video responsive */
+            max-width: 800px; /* Set a max width for better presentation */
+            display: block; /* Ensures it behaves as a block element */
+            margin: 0 auto; /* Center the video */
+            border: 2px solid white; /* Optional: Add a border for aesthetics */
+        }
     </style>
 </head>
 <body>
@@ -63,12 +77,20 @@
     </header>
 
     <div class="container">
-        <h2>Welcome to BRILLJANT</h2>
-        <p>BRILLJANT is a UF company created in 2024 by a group of young entrepreneurs with the vision of offering affordable sports sunglasses for everyone. We believe that high-quality sports sunglasses shouldn't break the bank.</p>
-        
-        <p>We are passionate about sports and outdoor activities, which inspired us to develop sunglasses that are not only lightweight and comfortable but also stylish and durable. We strive to combine functionality and design to create products that help you perform at your best, whether you're out for a run or competing at the highest level.</p>
-        
-        <p>At BRILLJANT, we are proud to offer free shipping to all our customers. We focus on making the shopping experience as simple and affordable as possible, and we constantly work on improving our products and service.</p>
+        <div class="text-content">
+            <h2>Welcome to BRILLJANT</h2>
+            <p>BRILLJANT is a UF company created in 2024 by a group of young entrepreneurs with the vision of offering affordable sports sunglasses for everyone. We believe that high-quality sports sunglasses shouldn't break the bank.</p>
+            
+            <p>We are passionate about sports and outdoor activities, which inspired us to develop sunglasses that are not only lightweight and comfortable but also stylish and durable. We strive to combine functionality and design to create products that help you perform at your best, whether you're out for a run or competing at the highest level.</p>
+            
+            <p>At BRILLJANT, we are proud to offer free shipping to all our customers. We focus on making the shopping experience as simple and affordable as possible, and we constantly work on improving our products and service.</p>
+        </div>
+
+        <!-- Embed the video below the text with autoplay and loop -->
+        <video autoplay loop muted preload="auto">
+            <source src="brillorvideo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <footer>
@@ -77,4 +99,3 @@
 
 </body>
 </html>
-

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - BRILLJANT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: black;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid gray;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 50px;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .thank-you-message {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .buy-button {
+            background-color: black;
+            color: white;
+            border: 2px solid gray;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .buy-button:hover {
+            background-color: gray;
+            color: black;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid gray;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Thank You!</h1>
+    </header>
+
+    <div class="container">
+        <div class="thank-you-message">
+            <h2>Your order has been placed!</h2>
+            <p>Thank you for your purchase. Your package will arrive within 4 days.</p>
+            <button class="buy-button" onclick="window.location.href='index.html'">Return to Home</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
