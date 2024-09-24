@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - BRILLJANT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: black;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid gray;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 50px;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .order-info {
+            margin: 20px 0;
+        }
+
+        .product {
+            background-color: black;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .buy-button {
+            background-color: black;
+            color: white;
+            border: 2px solid gray;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .buy-button:hover {
+            background-color: gray;
+            color: black;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid gray;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Order Confirmation</h1>
+    </header>
+
+    <div class="container">
+        <h2>Your Order Information</h2>
+        <div class="order-info">
+            <p><strong>Förnamn:</strong> <span id="display-first-name"></span></p>
+            <p><strong>Efternamn:</strong> <span id="display-last-name"></span></p>
+            <p><strong>Address:</strong> <span id="display-address"></span></p>
+            <p><strong>Phone:</strong> <span id="display-phone"></span></p>
+            <p><strong>Email:</strong> <span id="display-email"></span></p>
+        </div>
+
+        <div class="product">
+            <img src="https://via.placeholder.com/300" alt="Sport Sunglasses">
+            <h3>Sport Sunglasses</h3>
+            <p>Pris: 299 kr</p>
+        </div>
+
+        <button class="buy-button" onclick="window.location.href='thank_you.html'">Confirm Purchase</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
+    </footer>
+
+    <script>
+        // Hämta query parameters från URL
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('display-first-name').textContent = urlParams.get('firstName');
+        document.getElementById('display-last-name').textContent = urlParams.get('lastName');
+        document.getElementById('display-address').textContent = urlParams.get('address');
+        document.getElementById('display-phone').textContent = urlParams.get('phone');
+        document.getElementById('display-email').textContent = urlParams.get('email');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: black;
+            padding: 20px;
+            border-bottom: 2px solid gray;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 50px;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex; /* Använd flexbox för att placera bild och information */
+            justify-content: center; /* Centrera innehållet horisontellt */
+            align-items: center; /* Centrera innehållet vertikalt */
+            flex-direction: row; /* Låt innehållet flöda horisontellt */
+        }
+
+        .info {
+            flex: 1; /* Gör så att informationssektionen tar upp plats */
+            text-align: left; /* Justera texten till vänster */
+        }
+
+        .input-field {
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 22px); /* Justera bredden för padding */
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: transparent;
+            color: white;
+        }
+
+        .confirm-button {
+            padding: 15px 30px;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .confirm-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid gray;
+            margin-top: 20px;
+        }
+
+        .swish-image {
+            width: 300px; /* Justerat storlek till 300x300 */
+            height: 300px; /* Justerat storlek till 300x300 */
+            margin-left: 20px; /* Lite avstånd till vänster */
+        }
+
+        .payment-info {
+            font-weight: bold; /* Fet stil */
+            font-size: 18px; /* Större text */
+            margin-bottom: 10px; /* Avstånd mellan text och bild */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
+    </header>
+
+    <div class="container">
+        <div class="info">
+            <h2>Checkout</h2>
+            <p>Please fill in your information to complete the purchase:</p>
+
+            <input type="text" class="input-field" placeholder="First Name" required>
+            <input type="text" class="input-field" placeholder="Last Name" required>
+            <input type="text" class="input-field" placeholder="Phone Number" required>
+            <input type="email" class="input-field" placeholder="Email Address" required>
+
+            <div class="payment-info">We only accept Swish payments. Please send your payment to:</div> <!-- Ny text ovanför bilden -->
+        </div>
+
+        <img src="swish.png" alt="Swish QR Code" class="swish-image"> <!-- Justerat storlek till 300x300 och placerad till höger -->
+    </div>
+
+    <button class="confirm-button" onclick="confirmPurchase()">Confirm Purchase</button>
+
+    <footer>
+        <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function confirmPurchase() {
+            // Här kan du lägga till logik för att bekräfta köpet och navigera till order-sidan
+            window.location.href = "order-confirmation.html"; // Ändra till din orderbekräftelse-sida
+        }
+    </script>
+
+</body>
+</html>

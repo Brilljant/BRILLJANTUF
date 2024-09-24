@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRILLJANT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: black;
+            padding: 20px;
+            border-bottom: 2px solid gray;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 50px;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative; /* Position för att placera pilar */
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            opacity: 0.5; /* Justera transparens här */
+            display: none; /* Döljer bilderna initialt */
+            margin: 0 auto; /* Centrerar bilden */
+        }
+
+        .active {
+            display: block; /* Visar aktiv bild */
+        }
+
+        /* Styling för navigeringspilar */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.5); /* Transparent vit bakgrund */
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .arrow-left {
+            left: 10px; /* Placera till vänster */
+        }
+
+        .arrow-right {
+            right: 10px; /* Placera till höger */
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: gray;
+            cursor: pointer;
+        }
+
+        .active-dot {
+            background-color: white; /* Färg för aktiv pricka */
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid gray;
+            margin-top: 20px;
+        }
+
+        .about-button, .buy-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px; /* Stretchade knappar */
+            background-color: transparent;
+            color: white; /* Vit text */
+            border: 2px solid white; /* Vit kant */
+            text-decoration: none; /* Ingen understrykning */
+            border-radius: 5px; /* Rundade kanter */
+        }
+
+        .about-button:hover, .buy-button:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hover */
+        }
+
+        .product-name {
+            font-weight: bold; /* Fet stil */
+            font-size: 24px; /* Justera storlek efter behov */
+            margin: 20px 0; /* Marginal runt produktnamnet */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
+    </header>
+
+    <div class="container">
+        <!-- Placera About Us knappen direkt under BRILLJANT -->
+        <div class="about-button">
+            <a href="about.html" style="color: white;">About Us</a>
+        </div>
+
+        <img src="sportbrillor.png" alt="Sport Sunglasses" class="product-image active">
+        <img src="glasögon.png" alt="Glasses" class="product-image">
+
+        <!-- Produktnamn -->
+        <div class="product-name">BRILLOR .01</div>
+
+        <!-- Pilar för navigering -->
+        <button class="arrow arrow-left" id="prev">&#10094;</button>
+        <button class="arrow arrow-right" id="next">&#10095;</button>
+
+        <div class="dots">
+            <div class="dot active-dot" onclick="currentSlide(0)"></div>
+            <div class="dot" onclick="currentSlide(1)"></div>
+        </div>
+
+        <p>Price: 299 kr. Free shipping!</p>
+
+        <!-- Buy Now knapp -->
+        <div class="buy-button">
+            <a href="checkout.html" style="color: white;">Buy Now</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.product-image');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            images.forEach((img, i) => {
+                img.classList.remove('active');
+                dots[i].classList.remove('active-dot');
+            });
+            images[index].classList.add('active');
+            dots[index].classList.add('active-dot');
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showSlide(currentIndex);
+        }
+
+        function currentSlide(index) {
+            currentIndex = index;
+            showSlide(currentIndex);
+        }
+
+        document.getElementById('next').addEventListener('click', nextSlide);
+        document.getElementById('prev').addEventListener('click', prevSlide);
+    </script>
+
+</body>
+</html>
