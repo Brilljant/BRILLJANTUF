@@ -148,7 +148,7 @@
                     <input type="checkbox" ${user.paid ? 'checked' : ''} onchange="updatePaymentStatus(${index}, this.checked)">
                     <span class="payment-status">${user.paid ? 'Betalat' : 'Inte betalat'}</span>
                 </div>
-                <button onclick="showUserInfo('${user.firstName}', '${user.lastName}', '${user.phone}', '${user.email}')">View Info</button>
+                <button onclick="showUserInfo('${user.firstName}', '${user.lastName}', '${user.phone}', '${user.email}', '${user.address}', '${user.postalCode}', '${user.city}')">View Info</button>
                 <button onclick="deleteUser(${index})">Delete</button>
             `;
             userCardsContainer.appendChild(userCard);
@@ -165,11 +165,14 @@
         paymentStatusText.textContent = isPaid ? 'Betalat' : 'Inte betalat';
     }
 
-    function showUserInfo(firstName, lastName, phone, email) {
+    function showUserInfo(firstName, lastName, phone, email, address, postalCode, city) {
         alert(`
             Name: ${firstName} ${lastName}
             Phone: ${phone}
             Email: ${email}
+            Address: ${address}
+            Postal Code: ${postalCode}
+            City: ${city}
         `);
     }
 

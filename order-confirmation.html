@@ -88,11 +88,8 @@
 
     <div class="container">
         <h2>Your Order Information</h2>
-        <div class="order-info">
-            <p><strong>First Name:</strong> <span id="display-first-name"></span></p>
-            <p><strong>Last Name:</strong> <span id="display-last-name"></span></p>
-            <p><strong>Phone:</strong> <span id="display-phone"></span></p>
-            <p><strong>Email:</strong> <span id="display-email"></span></p>
+        <div class="order-info" id="userInfo">
+            <!-- User info will be populated here -->
         </div>
 
         <div class="product">
@@ -101,7 +98,7 @@
             <p>Price: 299 kr</p>
         </div>
 
-        <button class="buy-button" onclick="window.location.href='thank_you.html'">Confirm Purchase</button>
+        <button class="buy-button" onclick="confirmPurchase()">Confirm Purchase</button>
     </div>
 
     <footer>
@@ -109,12 +106,37 @@
     </footer>
 
     <script>
-        // Get query parameters from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        document.getElementById('display-first-name').textContent = urlParams.get('firstName') || 'N/A';
-        document.getElementById('display-last-name').textContent = urlParams.get('lastName') || 'N/A';
-        document.getElementById('display-phone').textContent = urlParams.get('phone') || 'N/A';
-        document.getElementById('display-email').textContent = urlParams.get('email') || 'N/A';
+        document.addEventListener('DOMContentLoaded', () => {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if (userInfo) {
+                document.getElementById('userInfo').innerHTML = `
+                    <p><strong>First Name:</strong> ${userInfo.firstName}</p>
+                    <p><strong>Last Name:</strong> ${userInfo.lastName}</p>
+                    <p><strong>Phone:</strong> ${userInfo.phone}</p>
+                    <p><strong>Email:</strong> ${userInfo.email}</p>
+                    <p><strong>Address:</strong> ${userInfo.address}</p>
+                    <p><strong>Postal Code:</strong> ${userInfo.postalCode}</p>
+                    <p><strong>City:</strong> ${userInfo.city}</p>
+                `;
+            } else {
+                document.getElementById('userInfo').innerHTML = "<p>No user information found.</p>";
+            }
+        });
+
+        function confirmPurchase() {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+            // Hämta användardata från localStorage
+            if (userInfo) {
+                userInfo.paid = true; // Sätt betalningsstatus
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                users.push(userInfo); // Lägg till den aktuella användaren i listan
+                localStorage.setItem('users', JSON.stringify(users)); // Spara listan
+            }
+
+            // Navigera till thank_you.html
+            window.location.href = 'thank_you.html';
+        }
     </script>
 
 </body>

@@ -75,7 +75,7 @@
         .swish-image {
             width: 300px;
             height: 300px;
-            margin-top: 20px; /* Lägger till avstånd mellan info och bilden */
+            margin-top: 20px;
         }
 
         .payment-info {
@@ -100,6 +100,9 @@
             <input type="text" id="lastName" class="input-field" placeholder="Last Name" required>
             <input type="text" id="phone" class="input-field" placeholder="Phone Number" required>
             <input type="email" id="email" class="input-field" placeholder="Email Address" required>
+            <input type="text" id="address" class="input-field" placeholder="Address" required>
+            <input type="text" id="postalCode" class="input-field" placeholder="Postal Code" required>
+            <input type="text" id="city" class="input-field" placeholder="City" required>
 
             <div class="payment-info">We only accept Swish payments. Please send your payment to:</div>
         </div>
@@ -120,9 +123,12 @@
             const lastName = document.getElementById('lastName').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const email = document.getElementById('email').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const postalCode = document.getElementById('postalCode').value.trim();
+            const city = document.getElementById('city').value.trim();
 
             // Kontrollera att alla fält är ifyllda
-            if (!firstName || !lastName || !phone || !email) {
+            if (!firstName || !lastName || !phone || !email || !address || !postalCode || !city) {
                 alert("Please fill in all fields.");
                 return; // Avsluta funktionen om validering misslyckas
             }
@@ -132,7 +138,10 @@
                 firstName: firstName,
                 lastName: lastName,
                 phone: phone,
-                email: email
+                email: email,
+                address: address,
+                postalCode: postalCode,
+                city: city
             };
 
             // Spara i localStorage
