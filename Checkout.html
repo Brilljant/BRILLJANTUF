@@ -31,14 +31,14 @@
             margin: 0 auto;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-direction: row;
         }
 
         .info {
-            flex: 1;
+            width: 100%;
             text-align: left;
+            margin-bottom: 20px;
         }
 
         .input-field {
@@ -75,7 +75,7 @@
         .swish-image {
             width: 300px;
             height: 300px;
-            margin-left: 20px;
+            margin-top: 20px; /* Lägger till avstånd mellan info och bilden */
         }
 
         .payment-info {
@@ -104,6 +104,7 @@
             <div class="payment-info">We only accept Swish payments. Please send your payment to:</div>
         </div>
 
+        <!-- Swish QR-kod Bild -->
         <img src="swish.png" alt="Swish QR Code" class="swish-image">
     </div>
 
@@ -120,15 +121,25 @@
             const phone = document.getElementById('phone').value.trim();
             const email = document.getElementById('email').value.trim();
 
-            // Validate all fields are filled
+            // Kontrollera att alla fält är ifyllda
             if (!firstName || !lastName || !phone || !email) {
                 alert("Please fill in all fields.");
-                return; // Exit the function if validation fails
+                return; // Avsluta funktionen om validering misslyckas
             }
 
-            // Construct the URL for the order confirmation page with query parameters
-            const url = `order-confirmation.html?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
-            window.location.href = url; // Navigate to the order confirmation page
+            // Spara användardata i localStorage
+            const userInfo = {
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                email: email
+            };
+
+            // Spara i localStorage
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+            // Navigera till orderbekräftelse
+            window.location.href = 'order-confirmation.html'; // Byt till orderbekräftelse
         }
     </script>
 
