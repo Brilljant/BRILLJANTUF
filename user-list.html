@@ -145,7 +145,7 @@
             userCard.innerHTML = `
                 <strong>${user.firstName} ${user.lastName}</strong>
                 <div>
-                    <input type="checkbox" ${user.paid ? 'checked' : ''} onchange="updatePaymentStatus(${index}, this.checked)">
+                    <input type="checkbox" ${user.paid ? '' : ''} onchange="updatePaymentStatus(${index}, this.checked)">
                     <span class="payment-status">${user.paid ? 'Betalat' : 'Inte betalat'}</span>
                 </div>
                 <button onclick="showUserInfo('${user.firstName}', '${user.lastName}', '${user.phone}', '${user.email}', '${user.address}', '${user.postalCode}', '${user.city}')">View Info</button>
