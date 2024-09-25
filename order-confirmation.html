@@ -137,9 +137,9 @@
                 users.push(userInfo); // Lägg till den aktuella användaren i listan
                 localStorage.setItem('users', JSON.stringify(users)); // Spara listan
 
-                console.log("Skickar e-post till:", userInfo.email);
+                console.log("Försöker skicka e-post till:", userInfo.email);
 
-                // Försöker skicka e-post
+                // Skicka e-post
                 emailjs.send('service_rndpsuj', 'template_2eah5vf', {
                     firstName: userInfo.firstName,
                     lastName: userInfo.lastName,
@@ -152,12 +152,14 @@
                     // Navigera till thank_you.html vid lyckad e-post
                     window.location.href = 'thank_you.html';
                 }, function(error) {
-                    console.log('FAILED...', error);
+                    console.error('FAILED...', error);
+                    alert("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
                     // Om e-post skickning misslyckas, navigera ändå
                     window.location.href = 'thank_you.html';
                 });
             } else {
-                console.log("User information missing, cannot send email.");
+                console.error("User information missing, cannot send email.");
+                alert("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
             }
         }
     </script>
