@@ -80,9 +80,45 @@
     </style>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+        // Initiera EmailJS med ditt användar-ID
         (function() {
-            emailjs.init("yIU9nnaLcM0-rJsI0"); // Uppdaterat EmailJS användar-ID
+            emailjs.init("yIU9nnaLcM0-rJsI0");  // Uppdaterat användar-ID
         })();
+
+        // Funktion för att skicka e-post när användaren bekräftar köpet
+        function confirmPurchase() {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+            if (userInfo) {
+                userInfo.paid = true; // Sätt betalningsstatus
+
+                // E-postdata att skicka via EmailJS
+                const emailParams = {
+                    firstName: userInfo.firstName,
+                    lastName: userInfo.lastName,
+                    email: userInfo.email,
+                    product: 'Sport Sunglasses',
+                    price: '349 kr'
+                };
+
+                console.log("Försöker skicka e-post till:", userInfo.email);
+
+                // Skicka e-post via EmailJS
+                emailjs.send('service_rndpsuj', 'template_2eah5vf', emailParams)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        alert('Bekräftelsemail skickades framgångsrikt!');
+                        // Navigera till tack-sidan
+                        window.location.href = 'thank_you.html';
+                    }, function(error) {
+                        console.error('FAILED...', error);
+                        alert("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
+                    });
+            } else {
+                console.error("Ingen användarinformation hittades.");
+                alert("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
+            }
+        }
     </script>
 </head>
 <body>
@@ -111,6 +147,7 @@
     </footer>
 
     <script>
+        // När sidan laddas, hämta användardata från localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             if (userInfo) {
@@ -127,41 +164,6 @@
                 document.getElementById('userInfo').innerHTML = "<p>No user information found.</p>";
             }
         });
-
-        function confirmPurchase() {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
-            if (userInfo) {
-                userInfo.paid = true; // Sätt betalningsstatus
-                const users = JSON.parse(localStorage.getItem('users')) || [];
-                users.push(userInfo); // Lägg till den aktuella användaren i listan
-                localStorage.setItem('users', JSON.stringify(users)); // Spara listan
-
-                console.log("Försöker skicka e-post till:", userInfo.email);
-
-                // Skicka e-post
-                emailjs.send('service_rndpsuj', 'template_2eah5vf', {
-                    firstName: userInfo.firstName,
-                    lastName: userInfo.lastName,
-                    email: userInfo.email,
-                    product: 'Sport Sunglasses',
-                    price: '349 kr'
-                })
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    // Navigera till thank_you.html vid lyckad e-post
-                    window.location.href = 'thank_you.html';
-                }, function(error) {
-                    console.error('FAILED...', error);
-                    alert("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
-                    // Om e-post skickning misslyckas, navigera ändå
-                    window.location.href = 'thank_you.html';
-                });
-            } else {
-                console.error("User information missing, cannot send email.");
-                alert("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
-            }
-        }
     </script>
 
 </body>
