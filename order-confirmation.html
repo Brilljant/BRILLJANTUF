@@ -78,14 +78,14 @@
             margin-top: 20px;
         }
     </style>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
         // Initiera EmailJS med ditt användar-ID
         (function() {
-            emailjs.init("yIU9nnaLcM0-rJsI0");  // Uppdaterat användar-ID
+            emailjs.init("yIU9nnaLcM0-rJsI0");  // Ditt EmailJS User ID
         })();
 
-        // Funktion för att skicka e-post när användaren bekräftar köpet
+        // Funktion för att skicka e-post och bekräfta beställning
         function confirmPurchase() {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -98,7 +98,10 @@
                     lastName: userInfo.lastName,
                     email: userInfo.email,
                     product: 'Sport Sunglasses',
-                    price: '349 kr'
+                    price: '349 kr',
+                    address: userInfo.address,
+                    postalCode: userInfo.postalCode,
+                    city: userInfo.city
                 };
 
                 console.log("Försöker skicka e-post till:", userInfo.email);
