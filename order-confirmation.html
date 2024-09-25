@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,15 +31,15 @@
             margin: 0 auto;
             padding: 20px;
             display: flex;
-            flex-direction: column; /* Stacked layout */
-            align-items: center; /* Center align items */
+            flex-direction: column;
+            align-items: center;
         }
 
         .order-info {
             margin: 20px 0;
-            text-align: left; /* Align text to the left */
-            width: 100%; /* Full width for the order info */
-            max-width: 500px; /* Max width for better presentation */
+            text-align: left;
+            width: 100%;
+            max-width: 500px;
         }
 
         .product {
@@ -51,8 +51,8 @@
         }
 
         .product img {
-            width: 500px; /* Fixed width */
-            height: 500px; /* Fixed height */
+            width: 500px;
+            height: 500px;
         }
 
         .buy-button {
@@ -63,7 +63,6 @@
             cursor: pointer;
             font-size: 16px;
             border-radius: 5px;
-            display: inline-block;
             text-align: center;
         }
 
@@ -79,6 +78,12 @@
             margin-top: 20px;
         }
     </style>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("yIU9nnaLcM0-rJsI0"); // Uppdaterat EmailJS användar-ID
+        })();
+    </script>
 </head>
 <body>
 
@@ -126,16 +131,34 @@
         function confirmPurchase() {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-            // Hämta användardata från localStorage
             if (userInfo) {
                 userInfo.paid = true; // Sätt betalningsstatus
                 const users = JSON.parse(localStorage.getItem('users')) || [];
                 users.push(userInfo); // Lägg till den aktuella användaren i listan
                 localStorage.setItem('users', JSON.stringify(users)); // Spara listan
-            }
 
-            // Navigera till thank_you.html
-            window.location.href = 'thank_you.html';
+                console.log("Skickar e-post till:", userInfo.email);
+
+                // Försöker skicka e-post
+                emailjs.send('service_rndpsuj', 'template_2eah5vf', {
+                    firstName: userInfo.firstName,
+                    lastName: userInfo.lastName,
+                    email: userInfo.email,
+                    product: 'Sport Sunglasses',
+                    price: '349 kr'
+                })
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    // Navigera till thank_you.html vid lyckad e-post
+                    window.location.href = 'thank_you.html';
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    // Om e-post skickning misslyckas, navigera ändå
+                    window.location.href = 'thank_you.html';
+                });
+            } else {
+                console.log("User information missing, cannot send email.");
+            }
         }
     </script>
 

@@ -18,7 +18,6 @@
             background-color: black;
             padding: 20px;
             border-bottom: 2px solid gray;
-            position: relative; /* Position för absolut placerade element */
         }
 
         h1 {
@@ -27,28 +26,23 @@
             color: white;
         }
 
-        .contact-email {
-            position: absolute;
-            top: 20px; /* Justera avståndet från toppen */
-            left: 20px; /* Justera avståndet från vänster */
-            font-weight: bold; /* Fet stil */
-            font-size: 12px; /* Justera storlek för mindre text */
-            color: white; /* Vit text */
+        /* Container for About Us and Köpvillkor buttons under logo */
+        .buttons {
+            display: flex;
+            justify-content: center; /* Centrera knapparna */
+            margin-top: 10px;
         }
 
         .about-button, .terms-button {
-            position: absolute;
-            top: 20px; /* Justera avståndet från toppen */
-            right: 20px; /* Justera avståndet från höger */
             background-color: transparent;
             color: white; /* Vit text */
             border: 2px solid white; /* Vit kant */
             text-decoration: none; /* Ingen understrykning */
             border-radius: 5px; /* Rundade kanter */
-            padding: 5px 10px; /* Padding för knappen */
+            padding: 5px 15px; /* Öka padding för större knappar */
             font-weight: bold; /* Fet stil */
-            font-size: 12px; /* Justera storlek för mindre text */
-            margin-left: 10px; /* Avstånd mellan knapparna */
+            font-size: 14px; /* Justera storlek för knapparna */
+            margin: 0 5px; /* Jämnt avstånd mellan knapparna */
             transition: background-color 0.3s; /* Övergångseffekt */
         }
 
@@ -167,16 +161,34 @@
             display: block; /* Gör den till blockelement */
             border: none; /* Ingen kantlinje */
         }
+
+        /* Style for the small dot */
+        .admin-dot {
+            position: relative; /* Positionerad relativt till footer */
+            display: inline-block; /* Gör så att pricken ligger på samma rad som texten */
+            height: 8px; /* Höjd på pricken */
+            width: 8px; /* Bredd på pricken */
+            border-radius: 50%; /* Gör pricken rund */
+            background-color: rgba(255, 255, 255, 0.1); /* Nästan osynlig vit färg */
+            cursor: pointer; /* Ändra muspekaren till pekare */
+            margin-left: 10px; /* Avstånd från texten */
+            z-index: 1000; /* Se till att pricken ligger ovanpå andra element */
+            border: none; /* Ingen kantlinje */
+        }
+
+        .admin-dot:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Lättare färg vid hover för att indikera klickbarhet */
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
-        <div class="contact-email">contactbrilljant@gmail.com</div> <!-- Email tillagd här -->
-        <!-- Placera About Us och Köpvillkor knappar i header -->
-        <a href="about.html" class="about-button">About Us</a>
-        <a href="terms.html" class="terms-button">Köpvillkor</a>
+        <div class="buttons">
+            <a href="about.html" class="about-button">About Us</a>
+            <a href="terms.html" class="terms-button">Köpvillkor</a>
+        </div>
     </header>
 
     <div class="container">
@@ -196,7 +208,7 @@
         <div class="product-name">BRILLOR .01</div>
 
         <!-- Pris och gratis frakt -->
-        <div class="price">299 kr</div>
+        <div class="price">349 kr</div>
         <p class="free-shipping">Free shipping!</p>
 
         <!-- Buy Now knapp -->
@@ -214,14 +226,15 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p> <!-- Email tillagd här -->
+        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com
+            <div class="admin-dot" onclick="window.location.href='user-list.html'"></div>
+        </p>
     </footer>
 
     <script>
         let currentIndex = 0;
         const images = document.querySelectorAll('.product-image');
         const dots = document.querySelectorAll('.dot');
-        const video = document.getElementById('video');
 
         function showSlide(index) {
             images.forEach((img, i) => {
@@ -246,28 +259,6 @@
             currentIndex = index;
             showSlide(currentIndex);
         }
-
-        // Function to play the video in reverse and then restart
-        function reverseVideo() {
-            const duration = video.duration;
-            let currentTime = duration;
-
-            video.pause(); // Pause the video
-            video.currentTime = currentTime; // Start from the end
-
-            const reversePlayback = setInterval(() => {
-                if (currentTime <= 0) {
-                    clearInterval(reversePlayback);
-                    video.currentTime = 0; // Reset to the start
-                    video.play(); // Play forward again
-                } else {
-                    currentTime -= 0.1; // Adjust speed here
-                    video.currentTime = currentTime;
-                }
-            }, 100); // Adjust speed of reverse playback here
-        }
-
-        video.addEventListener('ended', reverseVideo);
 
         document.getElementById('next').addEventListener('click', nextSlide);
         document.getElementById('prev').addEventListener('click', prevSlide);

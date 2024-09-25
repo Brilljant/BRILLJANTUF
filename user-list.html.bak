@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRILLJANT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 2px solid gray;
+        }
+        .user-card {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid gray;
+            margin-top: 20px;
+        }
+        .input-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .code-input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+        .submit-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: gray;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: gray;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .payment-status {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1></h1>
+</header>
+
+<div class="input-container">
+    <input type="text" id="accessCode" class="code-input" placeholder="Enter access code">
+    <button class="submit-button" onclick="checkCode()">Submit</button>
+    <p id="error-message" style="color: red; display: none;"></p>
+</div>
+
+<div id="userList" class="hidden">
+    <div id="userCards"></div>
+    <button class="back-button" onclick="goToHomePage()">Tillbaka till startsidan</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+</footer>
+
+<script>
+    let attemptCount = 0;
+    const maxAttempts = 2;
+    const lockDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
+    let lockTimeout;
+
+    function checkCode() {
+        const code = document.getElementById('accessCode').value.trim();
+        const errorMessage = document.getElementById('error-message');
+
+        if (lockTimeout) {
+            errorMessage.textContent = 'Too many attempts. Please try again later.';
+            return;
+        }
+
+        if (code === 'D2230607080') {
+            document.getElementById('userList').classList.remove('hidden');
+            loadUserData();
+            attemptCount = 0; // Reset attempts on successful entry
+            errorMessage.style.display = 'none'; // Clear error message
+        } else {
+            attemptCount++;
+            errorMessage.textContent = `Incorrect code. Attempt ${attemptCount}/${maxAttempts}.`;
+            errorMessage.style.display = 'block';
+
+            if (attemptCount >= maxAttempts) {
+                lockTimeout = setTimeout(() => {
+                    lockTimeout = null; // Reset lock after duration
+                }, lockDuration);
+                errorMessage.textContent = 'Too many attempts. Please try again later.';
+            }
+        }
+    }
+
+    async function loadUserData() {
+        const response = await fetch('http://localhost:3000/users'); // API endpoint
+        const users = await response.json();
+        const userCardsContainer = document.getElementById('userCards');
+        userCardsContainer.innerHTML = ''; // Clear previous entries
+
+        if (users.length === 0) {
+            userCardsContainer.innerHTML = '<p>No users found.</p>';
+            return;
+        }
+
+        users.sort((a, b) => {
+            const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+            const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+
+        users.forEach((user, index) => {
+            const userCard = document.createElement('div');
+            userCard.className = 'user-card';
+            userCard.innerHTML = `
+                <strong>${user.firstName} ${user.lastName}</strong>
+                <div>
+                    <input type="checkbox" ${user.paid ? 'checked' : ''} onchange="updatePaymentStatus(${user.id}, this.checked)">
+                    <span class="payment-status">${user.paid ? 'Betalat' : 'Inte betalat'}</span>
+                </div>
+                <button onclick="showUserInfo('${user.firstName}', '${user.lastName}', '${user.phone}', '${user.email}', '${user.address}', '${user.postalCode}', '${user.city}')">View Info</button>
+                <button onclick="deleteUser(${user.id})">Delete</button>
+            `;
+            userCardsContainer.appendChild(userCard);
+        });
+    }
+
+    async function updatePaymentStatus(userId, isPaid) {
+        await fetch(`http://localhost:3000/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ paid: isPaid })
+        });
+
+        // Update the payment status text in the UI
+        const paymentStatusText = document.querySelector(`#userCards .user-card:nth-child(${userId}) .payment-status`);
+        paymentStatusText.textContent = isPaid ? 'Betalat' : 'Inte betalat';
+    }
+
+    async function deleteUser(userId) {
+        await fetch(`http://localhost:3000/users/${userId}`, {
+            method: 'DELETE'
+        });
+        loadUserData(); // Reload the user data
+    }
+
+    function showUserInfo(firstName, lastName, phone, email, address, postalCode, city) {
+        alert(`
+            Name: ${firstName} ${
