@@ -161,6 +161,23 @@
             display: block; /* Gör den till blockelement */
             border: none; /* Ingen kantlinje */
         }
+
+        /* Style for the small dot */
+        .admin-dot {
+            position: fixed;
+            bottom: 10px; /* Justera avståndet från botten */
+            right: 10px; /* Justera avståndet från höger */
+            height: 10px; /* Höjd på pricken */
+            width: 10px; /* Bredd på pricken */
+            border-radius: 50%; /* Gör pricken rund */
+            background-color: rgba(255, 255, 255, 0.1); /* Nästan osynlig vit färg */
+            cursor: pointer; /* Ändra muspekaren till pekare */
+            z-index: 1000; /* Se till att pricken ligger ovanpå andra element */
+        }
+
+        .admin-dot:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Lättare färg vid hover för att indikera klickbarhet */
+        }
     </style>
 </head>
 <body>
@@ -210,6 +227,9 @@
     <footer>
         <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
     </footer>
+
+    <!-- Small dot for admin access -->
+    <div class="admin-dot" onclick="window.location.href='user-list.html'"></div>
 
     <script>
         let currentIndex = 0;

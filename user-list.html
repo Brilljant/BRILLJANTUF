@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List - BRILLJANT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 2px solid gray;
+        }
+        .user-card {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid gray;
+            margin-top: 20px;
+        }
+        .input-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .code-input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+        .submit-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: gray;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .payment-status {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>User List</h1>
+</header>
+
+<div class="input-container">
+    <input type="text" id="accessCode" class="code-input" placeholder="Enter access code">
+    <button class="submit-button" onclick="checkCode()">Submit</button>
+    <p id="error-message" style="color: red; display: none;"></p>
+</div>
+
+<div id="userList" class="hidden">
+    <h2>Users</h2>
+    <div id="userCards"></div>
+</div>
+
+<footer>
+    <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+</footer>
+
+<script>
+    let attemptCount = 0;
+    const maxAttempts = 2;
+    const lockDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
+    let lockTimeout;
+
+    function checkCode() {
+        const code = document.getElementById('accessCode').value.trim();
+        const errorMessage = document.getElementById('error-message');
+
+        if (lockTimeout) {
+            errorMessage.textContent = 'Too many attempts. Please try again later.';
+            return;
+        }
+
+        if (code === 'D2230607080') {
+            document.getElementById('userList').classList.remove('hidden');
+            loadUserData();
+            attemptCount = 0; // Reset attempts on successful entry
+            errorMessage.style.display = 'none'; // Clear error message
+        } else {
+            attemptCount++;
+            errorMessage.textContent = `Incorrect code. Attempt ${attemptCount}/${maxAttempts}.`;
+            errorMessage.style.display = 'block';
+
+            if (attemptCount >= maxAttempts) {
+                lockTimeout = setTimeout(() => {
+                    lockTimeout = null; // Reset lock after duration
+                }, lockDuration);
+                errorMessage.textContent = 'Too many attempts. Please try again later.';
+            }
+        }
+    }
+
+    function loadUserData() {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userCardsContainer = document.getElementById('userCards');
+        userCardsContainer.innerHTML = ''; // Clear previous entries
+
+        if (users.length === 0) {
+            userCardsContainer.innerHTML = '<p>No users found.</p>';
+            return;
+        }
+
+        // Sort users alphabetically by first name and last name
+        users.sort((a, b) => {
+            const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+            const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+
+        users.forEach((user, index) => {
+            const userCard = document.createElement('div');
+            userCard.className = 'user-card';
+            userCard.innerHTML = `
+                <strong>${user.firstName} ${user.lastName}</strong>
+                <div>
+                    <input type="checkbox" ${user.paid ? 'checked' : ''} onchange="updatePaymentStatus(${index}, this.checked)">
+                    <span class="payment-status">${user.paid ? 'Betalat' : 'Inte betalat'}</span>
+                </div>
+                <button onclick="showUserInfo('${user.firstName}', '${user.lastName}', '${user.phone}', '${user.email}')">View Info</button>
+                <button onclick="deleteUser(${index})">Delete</button>
+            `;
+            userCardsContainer.appendChild(userCard);
+        });
+    }
+
+    function updatePaymentStatus(index, isPaid) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users[index].paid = isPaid; // Update the payment status
+        localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+
+        // Update payment status text
+        const paymentStatusText = document.querySelector(`#userCards .user-card:nth-child(${index + 1}) .payment-status`);
+        paymentStatusText.textContent = isPaid ? 'Betalat' : 'Inte betalat';
+    }
+
+    function showUserInfo(firstName, lastName, phone, email) {
+        alert(`
+            Name: ${firstName} ${lastName}
+            Phone: ${phone}
+            Email: ${email}
+        `);
+    }
+
+    function deleteUser(index) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.splice(index, 1); // Remove the user at the specified index
+        localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+        loadUserData(); // Reload the user data
+    }
+</script>
+
+</body>
+</html>
