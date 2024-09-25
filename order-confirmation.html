@@ -110,16 +110,17 @@
                 emailjs.send('service_rndpsuj', 'template_2eah5vf', emailParams)
                     .then(function(response) {
                         console.log('SUCCESS!', response.status, response.text);
-                        alert('Bekräftelsemail skickades framgångsrikt!');
                         // Navigera till tack-sidan
                         window.location.href = 'thank_you.html';
                     }, function(error) {
                         console.error('FAILED...', error);
-                        alert("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
+                        // Logga fel utan alert
+                        console.log("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
                     });
             } else {
                 console.error("Ingen användarinformation hittades.");
-                alert("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
+                // Logga fel utan alert
+                console.log("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
             }
         }
     </script>
