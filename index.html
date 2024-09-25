@@ -18,7 +18,6 @@
             background-color: black;
             padding: 20px;
             border-bottom: 2px solid gray;
-            position: relative; /* Position för absolut placerade element */
         }
 
         h1 {
@@ -27,19 +26,11 @@
             color: white;
         }
 
-        .contact-email {
-            position: absolute;
-            top: 20px; /* Justera avståndet från toppen */
-            left: 20px; /* Justera avståndet från vänster */
-            font-weight: bold; /* Fet stil */
-            font-size: 12px; /* Justera storlek för mindre text */
-            color: white; /* Vit text */
-        }
-
+        /* Container for About Us and Köpvillkor buttons under logo */
         .buttons {
-            position: absolute;
-            top: 20px; /* Justera avståndet från toppen */
-            right: 20px; /* Justera avståndet från höger */
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
         }
 
         .about-button, .terms-button {
@@ -176,8 +167,6 @@
 
     <header>
         <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
-        <div class="contact-email">contactbrilljant@gmail.com</div> <!-- Email tillagd här -->
-        <!-- Placera About Us och Köpvillkor knappar i en wrapper för att undvika överlappning -->
         <div class="buttons">
             <a href="about.html" class="about-button">About Us</a>
             <a href="terms.html" class="terms-button">Köpvillkor</a>
@@ -219,7 +208,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p> <!-- Email tillagd här -->
+        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
     </footer>
 
     <script>
