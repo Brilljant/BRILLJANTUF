@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,6 +40,19 @@
             text-align: left;
             width: 100%;
             max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid gray;
+        }
+
+        .order-info h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .order-info p {
+            margin: 5px 0;
         }
 
         .product {
@@ -51,24 +64,32 @@
         }
 
         .product img {
-            width: 500px;
-            height: 500px;
+            width: 200px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .total-amount {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: yellow;
         }
 
         .buy-button {
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: black;
             border: 2px solid gray;
-            padding: 10px 20px;
+            padding: 15px 30px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 20px;
             border-radius: 5px;
             text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
         }
 
         .buy-button:hover {
             background-color: gray;
-            color: black;
+            color: white;
         }
 
         footer {
@@ -88,6 +109,7 @@
         // Funktion för att skicka e-post och bekräfta beställning
         function confirmPurchase() {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const totalAmount = localStorage.getItem('totalAmount') || '0.00'; // Hämta totalbeloppet
 
             if (userInfo) {
                 userInfo.paid = true; // Sätt betalningsstatus
@@ -98,10 +120,10 @@
                     lastName: userInfo.lastName,
                     email: userInfo.email,
                     product: 'Sport Sunglasses',
-                    price: '349 kr',
+                    price: totalAmount + ' SEK', // Använd totalbeloppet
                     address: userInfo.address,
                     postalCode: userInfo.postalCode,
-                    city: userInfo.city
+                    city: userInfo.city,
                 };
 
                 console.log("Försöker skicka e-post till:", userInfo.email);
@@ -123,39 +145,18 @@
                 console.log("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
             }
         }
-    </script>
-</head>
-<body>
 
-    <header>
-        <h1>Order Confirmation</h1>
-    </header>
-
-    <div class="container">
-        <h2>Your Order Information</h2>
-        <div class="order-info" id="userInfo">
-            <!-- User info will be populated here -->
-        </div>
-
-        <div class="product">
-            <img src="glasögon.png" alt="Sport Sunglasses">
-            <h3>Sport Sunglasses</h3>
-            <p>Price: 349 kr</p>
-        </div>
-
-        <button class="buy-button" onclick="confirmPurchase()">Confirm Purchase</button>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
-    </footer>
-
-    <script>
-        // När sidan laddas, hämta användardata från localStorage
+        // När sidan laddas, hämta användardata och produkter från localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const products = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const userInfoContainer = document.getElementById('userInfo');
+            const totalAmount = localStorage.getItem('totalAmount') || '0.00';
+
+            // Visa användarinformation
             if (userInfo) {
-                document.getElementById('userInfo').innerHTML = `
+                userInfoContainer.innerHTML = `
+                    <h2>Your Order Information</h2>
                     <p><strong>First Name:</strong> ${userInfo.firstName}</p>
                     <p><strong>Last Name:</strong> ${userInfo.lastName}</p>
                     <p><strong>Phone:</strong> ${userInfo.phone}</p>
@@ -165,10 +166,46 @@
                     <p><strong>City:</strong> ${userInfo.city}</p>
                 `;
             } else {
-                document.getElementById('userInfo').innerHTML = "<p>No user information found.</p>";
+                userInfoContainer.innerHTML = "<p>No user information found.</p>";
             }
+
+            // Visa endast en produkt i order
+            if (products.length > 0) {
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+                productDiv.innerHTML = `
+                    <img src="glasögon.png" alt="BRILLOR 01">
+                    <h3>BRILLOR 01</h3>
+                `;
+                document.querySelector('.container').insertBefore(productDiv, document.querySelector('.buy-button'));
+            }
+
+            // Visa totalbelopp
+            const totalAmountDiv = document.createElement('div');
+            totalAmountDiv.classList.add('total-amount');
+            totalAmountDiv.innerHTML = `Total Amount: ${totalAmount} SEK`;
+            document.querySelector('.container').insertBefore(totalAmountDiv, document.querySelector('.buy-button'));
         });
     </script>
+    
+</head>
+<body>
+
+<header>
+    <h1>Order Confirmation</h1>
+</header>
+
+<div class="container">
+    <div class="order-info" id="userInfo">
+        <!-- User info will be populated here -->
+    </div>
+
+    <button class="buy-button" onclick="confirmPurchase()">Confirm Purchase</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
+</footer>
 
 </body>
 </html>

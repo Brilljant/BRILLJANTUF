@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
+            background-color: #1a1a1a;
+            color: #ffffff;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -17,22 +18,22 @@
         header {
             background-color: black;
             padding: 20px;
-            border-bottom: 2px solid gray;
+            border-bottom: 2px solid #444;
         }
 
         h1 {
             margin: 0;
-            font-size: 50px;
-            color: white;
+            font-size: 40px;
         }
 
         .container {
-            width: 80%;
-            margin: 0 auto;
+            width: 90%;
+            max-width: 600px;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .info {
@@ -45,112 +46,165 @@
             margin: 10px 0;
             padding: 10px;
             width: calc(100% - 22px);
-            border: 1px solid gray;
+            border: 1px solid #444;
             border-radius: 5px;
-            background-color: transparent;
-            color: white;
+            background-color: #333;
+            color: #ffffff;
         }
 
         .confirm-button {
             padding: 15px 30px;
-            background-color: transparent;
+            background-color: #444;
             color: white;
-            border: 2px solid white;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+            font-size: 16px;
         }
 
         .confirm-button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            border-top: 2px solid gray;
-            margin-top: 20px;
-        }
-
-        .swish-image {
-            width: 300px;
-            height: 300px;
-            margin-top: 20px; /* Lägger till avstånd mellan info och bilden */
+            background-color: #555;
         }
 
         .payment-info {
             font-weight: bold;
             font-size: 18px;
             margin-bottom: 10px;
+            color: #e91e63;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            margin-top: 20px;
+            color: blue; /* Blå färg för totalsumman */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-top: 2px solid #444;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
-    </header>
+<header>
+    <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
+</header>
 
-    <div class="container">
-        <div class="info">
-            <h2>Checkout</h2>
-            <p>Please fill in your information to complete the purchase:</p>
+<div class="container">
+    <div class="info">
+        <h2>Checkout</h2>
+        <p>Please fill in your information to complete the purchase:</p>
 
-            <input type="text" id="firstName" class="input-field" placeholder="First Name" required>
-            <input type="text" id="lastName" class="input-field" placeholder="Last Name" required>
-            <input type="text" id="phone" class="input-field" placeholder="Phone Number" required>
-            <input type="email" id="email" class="input-field" placeholder="Email Address" required>
-            <input type="text" id="address" class="input-field" placeholder="Address" required>
-            <input type="text" id="postalCode" class="input-field" placeholder="Postal Code" required>
-            <input type="text" id="city" class="input-field" placeholder="City" required>
-
-            <div class="payment-info">We only accept Swish payments. Please send your payment to:</div>
-        </div>
-
-        <!-- Swish QR-kod Bild -->
-        <img src="swish.png" alt="Swish QR Code" class="swish-image">
+        <input type="text" id="firstName" class="input-field" placeholder="First Name" required>
+        <input type="text" id="lastName" class="input-field" placeholder="Last Name" required>
+        <input type="text" id="phone" class="input-field" placeholder="Phone Number" required>
+        <input type="email" id="email" class="input-field" placeholder="Email Address" required>
+        <input type="text" id="address" class="input-field" placeholder="Address" required>
+        <input type="text" id="postalCode" class="input-field" placeholder="Postal Code" required>
+        <input type="text" id="city" class="input-field" placeholder="City" required>
     </div>
 
+    <div class="payment-info">We only accept Swish payments. 
+	Please send your payment through the Swish app.</div>
+    
+    <div class="total-amount" id="totalAmount"></div>
     <button class="confirm-button" onclick="confirmPurchase()">Confirm Purchase</button>
+</div>
 
-    <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
-    </footer>
+<footer>
+    <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
+</footer>
 
-    <script>
-        function confirmPurchase() {
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const postalCode = document.getElementById('postalCode').value.trim();
-            const city = document.getElementById('city').value.trim();
+<script>
+    // Simulerar produkter och deras priser, kan ändras till riktig datakälla
+    const products = JSON.parse(localStorage.getItem('cartProducts')) || [];
+    
+    // Beräkna och visa totalsumman
+    function displayTotal() {
+        const totalElement = document.getElementById('totalAmount');
+        let totalAmount = 0;
 
-            // Kontrollera att alla fält är ifyllda
-            if (!firstName || !lastName || !phone || !email || !address || !postalCode || !city) {
-                alert("Please fill in all fields.");
-                return; // Avsluta funktionen om validering misslyckas
-            }
+        products.forEach(product => {
+            totalAmount += product.price; // Anta att varje produkt har en price egenskap
+        });
 
-            // Spara användardata i localStorage
-            const userInfo = {
-                firstName: firstName,
-                lastName: lastName,
-                phone: phone,
-                email: email,
-                address: address,
-                postalCode: postalCode,
-                city: city
-            };
+        totalElement.innerText = `Total Amount: ${totalAmount.toFixed(2)} SEK`;
+    }
 
-            // Spara i localStorage
-            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    // Kör totalberäkningen när sidan laddas
+    displayTotal();
 
-            // Navigera till orderbekräftelse
-            window.location.href = 'order-confirmation.html'; // Byt till orderbekräftelse
+    function confirmPurchase() {
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const postalCode = document.getElementById('postalCode').value.trim();
+        const city = document.getElementById('city').value.trim();
+
+        // Kontrollera att alla fält är ifyllda
+        if (!firstName || !lastName || !phone || !email || !address || !postalCode || !city) {
+            alert("Please fill in all fields.");
+            return; // Avsluta funktionen om validering misslyckas
         }
-    </script>
+
+        // Spara användardata i localStorage
+        const userInfo = {
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+            email: email,
+            address: address,
+            postalCode: postalCode,
+            city: city
+        };
+
+        // Spara i localStorage
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+        // Här kan du lägga till kod för att initiera Swish API-anrop
+        // Exempel:
+        initiateSwishPayment(userInfo);
+
+        // Navigera till orderbekräftelse
+        window.location.href = 'order-confirmation.html'; // Byt till orderbekräftelse
+    }
+
+    function initiateSwishPayment(userInfo) {
+        // Här ska du lägga in logik för att initiera betalningen via Swish API
+        // Exempel:
+        fetch('/path/to/your/api/initiate-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                amount: products.reduce((total, product) => total + product.price, 0) * 100, // Belopp i öre
+                phone: userInfo.phone,
+                // Lägg till andra fält som behövs
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Betalningen lyckades, du kan navigera eller visa ett meddelande
+                alert("Payment initiated successfully!");
+            } else {
+                // Hantera eventuella fel
+                alert("Payment failed: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error during payment initiation:", error);
+            alert("An error occurred. Please try again.");
+        });
+    }
+</script>
 
 </body>
 </html>

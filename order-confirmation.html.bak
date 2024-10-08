@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,6 +40,19 @@
             text-align: left;
             width: 100%;
             max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid gray;
+        }
+
+        .order-info h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .order-info p {
+            margin: 5px 0;
         }
 
         .product {
@@ -56,19 +69,21 @@
         }
 
         .buy-button {
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: black;
             border: 2px solid gray;
-            padding: 10px 20px;
+            padding: 15px 30px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 20px;
             border-radius: 5px;
             text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
         }
 
         .buy-button:hover {
             background-color: gray;
-            color: black;
+            color: white;
         }
 
         footer {
@@ -77,90 +92,124 @@
             border-top: 2px solid gray;
             margin-top: 20px;
         }
+
+        .delivery-method {
+            margin-top: 20px;
+            text-align: center; /* Centered for better appearance */
+            padding-left: 20px;
+        }
+
+        .postnord-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .postnord-logo {
+            width: 50px; /* Adjust the size as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
     </style>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
+        // Initiera EmailJS med ditt användar-ID
         (function() {
-            emailjs.init("aoaDFMoPA-veGb0r3"); // Ditt EmailJS användar-ID
+            emailjs.init("yIU9nnaLcM0-rJsI0");  // Ditt EmailJS User ID
         })();
-    </script>
-</head>
-<body>
 
-    <header>
-        <h1>Order Confirmation</h1>
-    </header>
-
-    <div class="container">
-        <h2>Your Order Information</h2>
-        <div class="order-info" id="userInfo">
-            <!-- User info will be populated here -->
-        </div>
-
-        <div class="product">
-            <img src="glasögon.png" alt="Sport Sunglasses">
-            <h3>Sport Sunglasses</h3>
-            <p>Price: 349 kr</p>
-        </div>
-
-        <button class="buy-button" onclick="confirmPurchase()">Confirm Purchase</button>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            if (userInfo) {
-                document.getElementById('userInfo').innerHTML = `
-                    <p><strong>First Name:</strong> ${userInfo.firstName}</p>
-                    <p><strong>Last Name:</strong> ${userInfo.lastName}</p>
-                    <p><strong>Phone:</strong> ${userInfo.phone}</p>
-                    <p><strong>Email:</strong> ${userInfo.email}</p>
-                    <p><strong>Address:</strong> ${userInfo.address}</p>
-                    <p><strong>Postal Code:</strong> ${userInfo.postalCode}</p>
-                    <p><strong>City:</strong> ${userInfo.city}</p>
-                `;
-            } else {
-                document.getElementById('userInfo').innerHTML = "<p>No user information found.</p>";
-            }
-        });
-
+        // Funktion för att skicka e-post och bekräfta beställning
         function confirmPurchase() {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
             if (userInfo) {
                 userInfo.paid = true; // Sätt betalningsstatus
-                const users = JSON.parse(localStorage.getItem('users')) || [];
-                users.push(userInfo); // Lägg till den aktuella användaren i listan
-                localStorage.setItem('users', JSON.stringify(users)); // Spara listan
 
-                console.log("Skickar e-post till:", userInfo.email);
-
-                // Försöker skicka e-post
-                emailjs.send('service_rndpsuj', 'template_2eah5vf', {
+                // E-postdata att skicka via EmailJS
+                const emailParams = {
                     firstName: userInfo.firstName,
                     lastName: userInfo.lastName,
                     email: userInfo.email,
                     product: 'Sport Sunglasses',
-                    price: '349 kr'
-                })
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    // Navigera till thank_you.html vid lyckad e-post
-                    window.location.href = 'thank_you.html';
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    // Om e-post skickning misslyckas, navigera ändå
-                    window.location.href = 'thank_you.html';
-                });
+                    price: '349 kr', // Priset för glasögonen
+                    address: userInfo.address,
+                    postalCode: userInfo.postalCode,
+                    city: userInfo.city,
+                    deliveryMethod: "PostNord" // Valt leveransmetod
+                };
+
+                console.log("Försöker skicka e-post till:", userInfo.email);
+
+                // Skicka e-post via EmailJS
+                emailjs.send('service_rndpsuj', 'template_2eah5vf', emailParams)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        // Navigera till tack-sidan
+                        window.location.href = 'thank_you.html';
+                    }, function(error) {
+                        console.error('FAILED...', error);
+                        // Logga fel utan alert
+                        console.log("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
+                    });
             } else {
-                console.log("User information missing, cannot send email.");
+                console.error("Ingen användarinformation hittades.");
+                // Logga fel utan alert
+                console.log("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
             }
         }
     </script>
+</head>
+<body>
+
+<header>
+    <h1>Order Confirmation</h1>
+</header>
+
+<div class="container">
+    <div class="order-info" id="userInfo">
+        <h2>Your Order Information</h2>
+        <!-- User info will be populated here -->
+    </div>
+
+    <div class="delivery-method">
+        <h2>Skickas med PostNord</h2>
+        <button class="postnord-button" onclick="confirmPurchase()">
+            <img src="postnord.png" alt="PostNord" class="postnord-logo">
+        </button>
+    </div>
+
+    <div class="product">
+        <img src="glasögon.png" alt="Sport Sunglasses">
+        <h3>Sport Sunglasses</h3>
+        <p>Price: 349 kr</p>
+    </div>
+
+    <button class="buy-button" onclick="confirmPurchase()">Confirm Purchase</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p>
+</footer>
+
+<script>
+    // När sidan laddas, hämta användardata från localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo) {
+            document.getElementById('userInfo').innerHTML = `
+                <p><strong>First Name:</strong> ${userInfo.firstName}</p>
+                <p><strong>Last Name:</strong> ${userInfo.lastName}</p>
+                <p><strong>Phone:</strong> ${userInfo.phone}</p>
+                <p><strong>Email:</strong> ${userInfo.email}</p>
+                <p><strong>Address:</strong> ${userInfo.address}</p>
+                <p><strong>Postal Code:</strong> ${userInfo.postalCode}</p>
+                <p><strong>City:</strong> ${userInfo.city}</p>
+            `;
+        } else {
+            document.getElementById('userInfo').innerHTML = "<p>No user information found.</p>";
+        }
+    });
+</script>
 
 </body>
 </html>

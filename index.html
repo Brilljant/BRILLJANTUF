@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: black;
+            background-color: #1029BA;
             color: white;
             margin: 0;
             padding: 0;
@@ -15,7 +15,7 @@
         }
 
         header {
-            background-color: black;
+            background-color: #1029BA;
             padding: 20px;
             border-bottom: 2px solid gray;
         }
@@ -33,7 +33,7 @@
             margin-top: 10px;
         }
 
-        .about-button, .terms-button {
+        .about-button, .gallery-button, .terms-button {
             background-color: transparent;
             color: white; /* Vit text */
             border: 2px solid white; /* Vit kant */
@@ -46,7 +46,7 @@
             transition: background-color 0.3s; /* Övergångseffekt */
         }
 
-        .about-button:hover, .terms-button:hover {
+        .about-button:hover, .gallery-button:hover, .terms-button {
             background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hover */
         }
 
@@ -179,6 +179,24 @@
         .admin-dot:hover {
             background-color: rgba(255, 255, 255, 0.3); /* Lättare färg vid hover för att indikera klickbarhet */
         }
+
+        .product-image {
+    max-width: 100%;
+    height: auto;
+    display: none;
+    margin: 0 auto;
+    transition: filter 0.3s; /* För smidig övergång */
+}
+
+.product-image.active {
+    display: block; /* Visar aktiv bild */
+}
+
+/* Glow effect for the edges of the sunglasses */
+.product-image:hover {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 1)); /* Justera färger och intensitet */
+}
+
     </style>
 </head>
 <body>
@@ -188,13 +206,15 @@
         <div class="buttons">
             <a href="about.html" class="about-button">About Us</a>
             <a href="terms.html" class="terms-button">Köpvillkor</a>
+            <a href="gallery.html" class="gallery-button">Galleri</a>
         </div>
     </header>
 
     <div class="container">
         <img src="sportbrillor.png" alt="Sport Sunglasses" class="product-image active">
         <img src="glasögon.png" alt="Glasses" class="product-image">
-
+    </div>
+    
         <!-- Pilar för navigering -->
         <button class="arrow arrow-left" id="prev">&#10094;</button>
         <button class="arrow arrow-right" id="next">&#10095;</button>
@@ -212,17 +232,219 @@
         <p class="free-shipping">Free shipping!</p>
 
         <!-- Buy Now knapp -->
-        <div class="buy-button">
-            <a href="checkout.html" style="color: white;">Buy Now</a>
-        </div>
-    </div>
+<div class="buy-button">
+    <button onclick="buyNow('BRILLOR 01', 349)" class="buy-now-btn">ADD TO CART</button>
+</div>
 
-    <!-- Embed the video -->
-    <div class="video-wrapper">
-        <video id="video" autoplay loop muted preload="auto">
-            <source src="glasögon.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+<style>
+    .buy-button {
+        display: inline-block;
+    }
+
+    .buy-now-btn {
+        background-color: transparent; /* Ingen bakgrund */
+        color: white; /* Textfärg */
+        border: 3px solid white; /* Tjock ring runt knappen */
+        padding: 10px 25px; /* Utrymme inuti knappen */
+        border-radius: 5px; /* Rundade hörn */
+        font-size: 18px; /* Större text */
+        cursor: pointer; /* Handpekare vid hovring */
+        transition: background-color 0.3s, color 0.3s; /* Övergångseffekter */
+    }
+
+    .buy-now-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hovring */
+        color: white; /* Behåll textfärgen vit vid hovring */
+    }
+</style>
+
+<script>
+    function buyNow(itemName, itemPrice) {
+        // Skapa ett nytt objekt för varan
+        const newItem = {
+            name: itemName,
+            price: itemPrice
+        };
+
+        // Lägg till varan i cartItems
+        cartItems.push(newItem);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        displayCart();
+    }
+</script>
+
+    </div>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kundkorg</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1029BA;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Kundkorgsikon i det övre högra hörnet */
+        .cart-icon-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Popup-fönster för kundkorgen */
+        .cart-popup {
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: black;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            z-index: 1000;
+        }
+
+        .cart-popup ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-popup li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+        }
+
+        .cart-popup li:last-child {
+            border-bottom: none;
+        }
+
+        .cart-popup .cart-item-name {
+            font-size: 16px;
+        }
+
+        .cart-popup .cart-item-price {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .cart-popup .remove-button {
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .cart-popup #cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .cart-popup button {
+            background-color: #1029BA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+   <!-- Kundkorgsikon -->
+<div class="cart-icon-container" onclick="toggleCartPopup()">
+    <img src="https://cdn-icons-png.flaticon.com/512/34/34568.png" alt="Cart Icon" class="cart-icon">
+    <span id="cart-count" style="position: absolute; top: -5px; right: -5px; background-color: red; border-radius: 50%; padding: 3px 7px; color: white;">0</span>
+</div>
+
+<!-- Popup för kundkorgens innehåll -->
+<div class="cart-popup" id="cart-popup">
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Total: 0 kr</p>
+    <button onclick="proceedToCheckout()">Checkout</button>
+</div>
+
+<script>
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    // Visa kundkorgen
+    function displayCart() {
+        const cartItemsElement = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        const cartCountElement = document.getElementById('cart-count');
+        cartItemsElement.innerHTML = '';
+        let total = 0;
+        let itemCount = cartItems.length;
+
+        cartItems.forEach((item, index) => {
+            total += item.price;
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="cart-item-name">${item.name}</span>
+                <span class="cart-item-price">${item.price} kr</span>
+                <button class="remove-button" onclick="removeFromCart(${index})">&times;</button>
+            `;
+            cartItemsElement.appendChild(li);
+        });
+
+        cartTotalElement.innerText = `Total: ${total} kr`;
+        cartCountElement.innerText = itemCount;
+    }
+
+    // Toggle för att visa/dölja popup
+    function toggleCartPopup() {
+        const cartPopup = document.getElementById('cart-popup');
+        cartPopup.style.display = (cartPopup.style.display === 'none' || cartPopup.style.display === '') ? 'block' : 'none';
+    }
+
+    // Ta bort enskild produkt från kundkorgen
+    function removeFromCart(index) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        displayCart();
+    }
+
+    // Gå till kassan
+    function proceedToCheckout() {
+        if (cartItems.length > 0) {
+            window.location.href = 'checkout.html';
+        } else {
+            // Här kan du lägga till annan feedback till användaren, om så önskas.
+            console.log('Your cart is empty.'); // Exempel på feedback i konsolen
+        }
+    }
+
+    // Visa kundkorgen när sidan laddas
+    displayCart();
+</script>
+
+<!-- Image instead of video with white effect -->
+<div class="video-wrapper">
+    <img src="Berg.png" alt="Berg Image" style="max-width: 100%; height: auto; filter: brightness(0) invert(1);">
+</div>
+
     </div>
 
     <footer>

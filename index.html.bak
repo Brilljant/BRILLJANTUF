@@ -18,6 +18,7 @@
             background-color: black;
             padding: 20px;
             border-bottom: 2px solid gray;
+            position: relative;
         }
 
         h1 {
@@ -26,55 +27,105 @@
             color: white;
         }
 
-        /* Container for About Us and Köpvillkor buttons under logo */
-        .buttons {
+        .cart-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: black;
+            border: 2px solid gray;
+            padding: 10px;
+            width: 250px;
+            z-index: 1;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-item {
             display: flex;
-            justify-content: center; /* Centrera knapparna */
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .cart-item img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .cart-button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
             margin-top: 10px;
         }
 
-        .about-button, .terms-button {
-            background-color: transparent;
-            color: white; /* Vit text */
-            border: 2px solid white; /* Vit kant */
-            text-decoration: none; /* Ingen understrykning */
-            border-radius: 5px; /* Rundade kanter */
-            padding: 5px 15px; /* Öka padding för större knappar */
-            font-weight: bold; /* Fet stil */
-            font-size: 14px; /* Justera storlek för knapparna */
-            margin: 0 5px; /* Jämnt avstånd mellan knapparna */
-            transition: background-color 0.3s; /* Övergångseffekt */
+        .total-price {
+            font-weight: bold;
         }
 
-        .about-button:hover, .terms-button:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hover */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .about-button, .terms-button, .gallery-button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .about-button:hover, .terms-button:hover, .gallery-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
-            position: relative; /* Position för att placera pilar */
+            position: relative;
         }
 
         .product-image {
             max-width: 100%;
             height: auto;
-            opacity: 0.5; /* Justera transparens här */
-            display: none; /* Döljer bilderna initialt */
-            margin: 0 auto; /* Centrerar bilden */
+            display: none;
+            margin: 0 auto;
         }
 
         .active {
-            display: block; /* Visar aktiv bild */
+            display: block;
         }
 
-        /* Styling för navigeringspilar */
         .arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.5); /* Transparent vit bakgrund */
+            background-color: rgba(255, 255, 255, 0.5);
             border: none;
             cursor: pointer;
             font-size: 30px;
@@ -84,11 +135,11 @@
         }
 
         .arrow-left {
-            left: 10px; /* Placera till vänster */
+            left: 10px;
         }
 
         .arrow-right {
-            right: 10px; /* Placera till höger */
+            right: 10px;
         }
 
         .dots {
@@ -107,7 +158,7 @@
         }
 
         .active-dot {
-            background-color: white; /* Färg för aktiv pricka */
+            background-color: white;
         }
 
         footer {
@@ -120,65 +171,63 @@
         .buy-button {
             display: inline-block;
             margin-top: 20px;
-            padding: 15px 30px; /* Stretchade knappar */
+            padding: 15px 30px;
             background-color: transparent;
-            color: white; /* Vit text */
-            border: 2px solid white; /* Vit kant */
-            text-decoration: none; /* Ingen understrykning */
-            border-radius: 5px; /* Rundade kanter */
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .buy-button:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Lätt bakgrundsfärg vid hover */
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .product-name {
-            font-weight: bold; /* Fet stil */
-            font-size: 24px; /* Justera storlek efter behov */
-            margin: 20px 0; /* Marginal runt produktnamnet */
+            font-weight: bold;
+            font-size: 24px;
+            margin: 20px 0;
         }
 
         .price {
-            font-weight: bold; /* Fet stil */
-            font-size: 30px; /* Större text för priset */
-            margin: 5px 0; /* Mindre marginal runt priset */
+            font-weight: bold;
+            font-size: 30px;
+            margin: 5px 0;
         }
 
         .free-shipping {
-            font-size: 12px; /* Mindre text för gratis frakt */
-            margin: 0; /* Ingen marginal */
+            font-size: 12px;
+            margin: 0;
         }
 
-        .video-wrapper {
-            position: relative; /* För att positionera videon */
-            display: inline-block; /* Gör så att videon centrerar korrekt */
-            margin: 20px auto; /* Centrera video-wrapper */
-        }
-
-        video {
-            width: 100%; /* Gör videon responsiv */
-            max-width: 800px; /* Maxbredd för bättre presentation */
-            display: block; /* Gör den till blockelement */
-            border: none; /* Ingen kantlinje */
-        }
-
-        /* Style for the small dot */
         .admin-dot {
-            position: relative; /* Positionerad relativt till footer */
-            display: inline-block; /* Gör så att pricken ligger på samma rad som texten */
-            height: 8px; /* Höjd på pricken */
-            width: 8px; /* Bredd på pricken */
-            border-radius: 50%; /* Gör pricken rund */
-            background-color: rgba(255, 255, 255, 0.1); /* Nästan osynlig vit färg */
-            cursor: pointer; /* Ändra muspekaren till pekare */
-            margin-left: 10px; /* Avstånd från texten */
-            z-index: 1000; /* Se till att pricken ligger ovanpå andra element */
-            border: none; /* Ingen kantlinje */
+            position: relative;
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            margin-left: 10px;
+            z-index: 1000;
+            border: none;
         }
 
         .admin-dot:hover {
-            background-color: rgba(255, 255, 255, 0.3); /* Lättare färg vid hover för att indikera klickbarhet */
+            background-color: rgba(255, 255, 255, 0.3);
         }
+		.cart-count {
+    position: absolute;
+    top: -5px; /* Justera detta värde för att flytta indikatorn upp eller ner */
+    right: -10px; /* Justera detta värde för att flytta indikatorn vänster eller höger */
+    background-color: blue;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
     </style>
 </head>
 <body>
@@ -188,6 +237,17 @@
         <div class="buttons">
             <a href="about.html" class="about-button">About Us</a>
             <a href="terms.html" class="terms-button">Köpvillkor</a>
+            <a href="gallery.html" class="gallery-button">Galleri</a>
+        </div>
+        <div class="cart-icon" onclick="toggleCartDropdown()">
+    🛒
+    <span class="cart-count" id="cart-count">0</span>
+</div>
+
+        <div class="cart-dropdown">
+            <ul class="cart-items"></ul>
+            <p>Total: <span class="total-price">0 kr</span></p>
+            <button class="cart-button" onclick="checkout()">Checkout</button>
         </div>
     </header>
 
@@ -195,7 +255,6 @@
         <img src="sportbrillor.png" alt="Sport Sunglasses" class="product-image active">
         <img src="glasögon.png" alt="Glasses" class="product-image">
 
-        <!-- Pilar för navigering -->
         <button class="arrow arrow-left" id="prev">&#10094;</button>
         <button class="arrow arrow-right" id="next">&#10095;</button>
 
@@ -204,26 +263,15 @@
             <div class="dot" onclick="currentSlide(1)"></div>
         </div>
 
-        <!-- Produktnamn -->
         <div class="product-name">BRILLOR .01</div>
-
-        <!-- Pris och gratis frakt -->
         <div class="price">349 kr</div>
         <p class="free-shipping">Free shipping!</p>
 
-        <!-- Buy Now knapp -->
-        <div class="buy-button">
-            <a href="checkout.html" style="color: white;">Buy Now</a>
-        </div>
-    </div>
+        <button class="buy-button" onclick="addToCart('BRILLOR .01', 349, 'sportbrillor.png')">Lägg i kundkorgen</button>
+    </div> id="cartCount" style="color: white; font-size: 20px; position: absolute; top: 20px; right: 20px;">
+    Products in Cart: <span id="productCount">0</span>
+</div>
 
-    <!-- Embed the video -->
-    <div class="video-wrapper">
-        <video id="video" autoplay loop muted preload="auto">
-            <source src="glasögon.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
 
     <footer>
         <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com
@@ -232,36 +280,97 @@
     </footer>
 
     <script>
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.product-image');
-        const dots = document.querySelectorAll('.dot');
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        function showSlide(index) {
-            images.forEach((img, i) => {
-                img.classList.remove('active');
-                dots[i].classList.remove('active-dot');
-            });
-            images[index].classList.add('active');
-            dots[index].classList.add('active-dot');
+function addToCart(productName, price) {
+    let item = cart.find(item => item.name === productName);
+    if (item) {
+        item.quantity++;
+    } else {
+        cart.push({ name: productName, price: price, quantity: 1 });
+    }
+    updateCart();
+}
+
+function updateCart() {
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const totalPriceContainer = document.querySelector('.total-price');
+    const cartCountContainer = document.getElementById('cart-count'); // Hämta indikatorn
+    cartItemsContainer.innerHTML = '';
+
+    let totalPrice = 0;
+    let totalCount = 0; // Variabel för att hålla reda på total antal produkter
+
+    cart.forEach(item => {
+        const itemElement = document.createElement('li');
+        itemElement.textContent = `${item.name} - ${item.quantity} st - ${item.price * item.quantity} kr`;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Ta bort';
+        removeButton.onclick = () => removeFromCart(item.name);
+        itemElement.appendChild(removeButton);
+        cartItemsContainer.appendChild(itemElement);
+
+        totalPrice += item.price * item.quantity;
+        totalCount += item.quantity; // Lägg till antalet produkter
+    });
+
+    totalPriceContainer.textContent = `${totalPrice} kr`;
+    cartCountContainer.textContent = totalCount; // Uppdatera indikatorn med det totala antalet
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function removeFromCart(productName) {
+    const item = cart.find(item => item.name === productName);
+    if (item) {
+        if (item.quantity > 1) {
+            item.quantity--;
+        } else {
+            cart = cart.filter(item => item.name !== productName);
         }
+    }
+    updateCart();
+}
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % images.length;
-            showSlide(currentIndex);
-        }
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showSlide(currentIndex);
-        }
+   function checkout() {
+    if (cart.length === 0) {
+        alert("Din kundvagn är tom! Lägg till produkter innan du går till kassan.");
+    } else {
+        // Navigera till checkout.html
+        window.location.href = 'checkout.html';
+    }
+}
 
-        function currentSlide(index) {
-            currentIndex = index;
-            showSlide(currentIndex);
-        }
 
-        document.getElementById('next').addEventListener('click', nextSlide);
-        document.getElementById('prev').addEventListener('click', prevSlide);
+    function toggleCartDropdown() {
+        const dropdown = document.querySelector('.cart-dropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    window.onload = updateCart;
+
+    // Slide image functionality
+    const images = document.querySelectorAll('.product-image');
+    function currentSlide(n) {
+        images.forEach((img, index) => {
+            img.classList.remove('active');
+            if (index === n) {
+                img.classList.add('active');
+            }
+        });
+    }
+
+    document.getElementById('prev').onclick = () => {
+        const currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+        const newIndex = (currentIndex - 1 + images.length) % images.length;
+        currentSlide(newIndex);
+    };
+
+    document.getElementById('next').onclick = () => {
+        const currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+        const newIndex = (currentIndex + 1) % images.length;
+        currentSlide(newIndex);
+    };
     </script>
 
 </body>

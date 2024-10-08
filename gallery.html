@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Köpvillkor - BRILLJANT</title>
+    <title>Galleri - BRILLJANT</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: black;
+            background-color: rgb(0, 0, 0);
             color: white;
             margin: 0;
             padding: 20px;
@@ -41,7 +41,7 @@
             right: 20px; /* Distance from the right */
         }
 
-        .about-button, .gallery-button {
+        .about-button, .terms-button, .gallery-button {
             background-color: transparent;
             color: white; /* White text */
             border: 2px solid white; /* White border */
@@ -54,7 +54,7 @@
             transition: background-color 0.3s; /* Transition effect */
         }
 
-        .about-button:hover, .gallery-button:hover {
+        .about-button:hover, .terms-button:hover, .gallery-button:hover {
             background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
         }
 
@@ -70,9 +70,25 @@
             margin-top: 30px; /* Space above section headers */
         }
 
-        p {
-            font-size: 16px; /* Standard paragraph text size */
-            margin: 10px 0; /* Space around paragraphs */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 10px; /* Space between images */
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%; /* Make images fill the column width */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Optional: Add rounded corners */
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px solid gray;
+            font-size: 12px;
+            color: gray;
         }
     </style>
 </head>
@@ -80,27 +96,28 @@
 
     <header>
         <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
-        <div class="contact-email">contactbrilljant@gmail.com</div> <!-- Email added here -->
+        <div class="contact-email">contactbrilljant@gmail.com</div>
         <div class="buttons">
             <a href="about.html" class="about-button">About Us</a>
-            <a href="gallery.html" class="gallery-button">Galleri</a>
+            <a href="terms.html" class="terms-button">Köpvillkor</a>
         </div>
     </header>
 
     <div class="container">
-        <h2>Returpolicy</h2>
-        <p>Vi erbjuder en returperiod på 30 dagar från det att du mottagit din beställning.</p>
-        <p>Köparen står för fraktkostnader vid retur.</p>
 
-        <h2>Övrig information</h2>
-        <p>För frågor, vänligen kontakta oss på: contactbrilljant@gmail.com.</p>
-        <p>Vi förbehåller oss rätten att ändra våra köpvillkor vid behov.</p>
-        <p>Returer ska ske i originalförpackning.</p>
-        <p>Observera att vi inte tar ansvar för förlorade eller skadade varor under returprocessen.</p>
+        <div class="gallery">
+            <!-- Placeholder images for now -->
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 1">
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 2">
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 3">
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 4">
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 5">
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 6">
+        </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 BRILLJANT. All rights reserved. contactbrilljant@gmail.com</p> <!-- Email added here -->
+        <p>&copy; 2024 BRILLJANT. All rights reserved.</p>
     </footer>
 
 </body>

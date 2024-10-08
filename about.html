@@ -68,12 +68,45 @@
             margin: 0 auto; /* Center the video */
             border: 2px solid white; /* Optional: Add a border for aesthetics */
         }
+		
+		        .contact-email {
+            position: absolute;
+            top: 20px; /* Distance from the top */
+            left: 20px; /* Distance from the left */
+            font-weight: bold; /* Bold style */
+            font-size: 12px; /* Smaller text size */
+            color: white; /* White text */
+        }
+
+        .buttons {
+            position: absolute;
+            top: 20px; /* Distance from the top */
+            right: 20px; /* Distance from the right */
+        }
+
+        .gallery-button, .terms-button {
+            background-color: transparent;
+            color: white; /* White text */
+            border: 2px solid white; /* White border */
+            text-decoration: none; /* No underline */
+            border-radius: 5px; /* Rounded corners */
+            padding: 5px 10px; /* Button padding */
+            font-weight: bold; /* Bold style */
+            font-size: 12px; /* Smaller text size */
+            margin-left: 10px; /* Space between buttons */
+            transition: background-color 0.3s; /* Transition effect */
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
+		        <div class="contact-email">contactbrilljant@gmail.com</div> <!-- Email added here -->
+        <div class="buttons">
+            <a href="gallery.html" class="gallery-button">Galleri</a>
+            <a href="terms.html" class="terms-button">Köpvillkor</a>
+        </div>
     </header>
 
     <div class="container">
