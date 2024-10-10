@@ -459,9 +459,10 @@
             margin-top: 10px;
         }
 
-        body {
+body {
     position: relative; /* Gör att vi kan placera pseudo-elementet relativt */
     margin: 0; /* Ta bort eventuell standardmarginal */
+    overflow-x: hidden; /* Förhindra horisontell scrollning */
 }
 
 body::before {
@@ -493,8 +494,6 @@ body::before {
         font-size: 16px; /* Justera textstorlek för bättre läsbarhet */
     }
 }
-
-        }
 
     </style>
 </head>
