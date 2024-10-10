@@ -464,6 +464,7 @@
     margin: 0; /* Ta bort eventuell standardmarginal */
     overflow-x: hidden; /* Förhindra horisontell scrollning */
     background-color: #1029BA; /* Återställ till original färg (blå) */
+    font-family: Arial, sans-serif; /* Välj en standardfont för bättre läsbarhet */
 }
 
 body::before {
@@ -488,6 +489,23 @@ body::before {
     padding: 20px; /* Extra padding för innehållet */
     max-width: 100%; /* Förhindra att innehållet överskrider viewport-bredden */
     box-sizing: border-box; /* Inkludera padding och border i elementets totala bredd */
+}
+
+/* Gör så att alla bilder är responsiva */
+img {
+    max-width: 100%; /* Gör att bilderna inte överskrider förälderns bredd */
+    height: auto; /* Bevara bildens proportioner */
+}
+
+/* Media queries för att göra sidan mer mobilanpassad */
+@media (max-width: 768px) {
+    .content {
+        padding: 10px; /* Minska padding för mindre skärmar */
+    }
+    
+    button, a {
+        padding: 8px 16px; /* Minska padding på knappar */
+    }
 }
 
     </style>
