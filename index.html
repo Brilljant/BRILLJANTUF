@@ -486,6 +486,8 @@ body::before {
     color: black; /* Ändra textfärg till svart för kontrast */
     z-index: 1; /* Se till att innehållet är ovanför pseudo-elementet */
     padding: 20px; /* Extra padding för innehållet */
+    max-width: 100%; /* Förhindra att innehållet överskrider viewport-bredden */
+    box-sizing: border-box; /* Inkludera padding och border i elementets totala bredd */
 }
 
 /* Media Query för mobila enheter */
@@ -495,6 +497,19 @@ body::before {
         font-size: 16px; /* Justera textstorlek för bättre läsbarhet */
     }
 }
+
+/* Se till att bilder och andra element är responsiva */
+img {
+    max-width: 100%; /* Bilder ska inte överskrida förälderns bredd */
+    height: auto; /* Behåll proportionerna */
+}
+
+/* Om du har några specifika div-element som orsakar problem, lägg till följande */
+.some-element {
+    overflow: hidden; /* Förhindra overflow */
+    max-width: 100%; /* Se till att dessa inte överskrider bredden */
+}
+
     </style>
 </head>
 <body>
