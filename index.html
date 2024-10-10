@@ -462,11 +462,11 @@
         body {
     position: relative; /* Gör att vi kan placera pseudo-elementet relativt */
     margin: 0; /* Ta bort eventuell standardmarginal */
-        }
+}
 
-        body::before {
+body::before {
     content: ""; /* Innehåll för pseudo-elementet */
-    position: fixed; /* Gör att överlagringen alltid är synlig */
+    position: absolute; /* Ändra till absolut för att inte påverka layouten */
     top: 0; /* Täck hela toppen */
     left: 0; /* Täck hela vänster sidan */
     right: 0; /* Täck hela högra sidan */
@@ -477,13 +477,23 @@
     background-repeat: no-repeat; /* Ingen upprepning */
     filter: brightness(0) invert(1); /* Invertera färgerna för att göra bilden vit */
     z-index: -1; /* Se till att överlagringen ligger bakom allt annat innehåll */
-            }
+}
 
-        .content {
+.content {
     position: relative; /* Gör så att innehållet ligger ovanpå överlagringen */
     color: black; /* Ändra textfärg till svart för kontrast */
     z-index: 1; /* Se till att innehållet är ovanför pseudo-elementet */
     padding: 20px; /* Extra padding för innehållet */
+}
+
+/* Media Query för mobila enheter */
+@media (max-width: 600px) {
+    .content {
+        padding: 10px; /* Minska padding för mindre skärmar */
+        font-size: 16px; /* Justera textstorlek för bättre läsbarhet */
+    }
+}
+
         }
 
     </style>
