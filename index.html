@@ -57,45 +57,37 @@
         }
 
         .about-button, .gallery-button, .terms-button {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-            text-decoration: none;
-            border-radius: 30px; /* Rundare knappar för ett elegantare utseende */
-            padding: 10px 20px;
-            font-weight: bold;
-            font-size: 14px;
-            margin: 0 10px; /* Mer avstånd för en lyxig look */
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px; /* Rundade hörn för ett elegant utseende */
+    padding: 8px 15px; /* Mindre padding för att förminska knappen */
+    font-weight: bold;
+    font-size: 12px; /* Mindre fontstorlek för att passa bättre på mobila enheter */
+    margin: 0 5px; /* Minskat avstånd mellan knapparna */
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    display: inline-block; /* För att knapparna ska radgrupperas korrekt */
+    justify-content: center;
+}
 
-        .about-button::before, .gallery-button::before, .terms-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
+.about-button:hover, .gallery-button:hover, .terms-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05); /* Minska förstoring vid hover för en mer subtil effekt */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); /* Mindre skugga vid hover */
+}
 
-        .about-button:hover::before, .gallery-button:hover::before, .terms-button:hover::before {
-            width: 0;
-            height: 0;
-        }
+/* Media query för mobila enheter */
+@media (max-width: 600px) {
+    .about-button, .gallery-button, .terms-button {
+        font-size: 10px; /* Ännu mindre textstorlek för ännu bättre anpassning */
+        padding: 6px 10px; /* Minska padding ännu mer */
+        margin: 0 3px; /* Ytterligare minskning av avstånd */
+    }
+}
 
-        .about-button:hover, .gallery-button:hover, .terms-button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1); /* Förstoring vid hover */
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3); /* Glansig skugga vid hover */
-        }
 
         .container {
             width: 80%;
