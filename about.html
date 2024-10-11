@@ -101,13 +101,39 @@
 <body>
 
     <header>
-        <h1><a href="index.html" style="text-decoration: none; color: white;">BRILLJANT</a></h1>
-		        <div class="contact-email">contactbrilljant@gmail.com</div> <!-- Email added here -->
-        <div class="buttons">
-            <a href="gallery.html" class="gallery-button">Galleri</a>
-            <a href="terms.html" class="terms-button">Köpvillkor</a>
-        </div>
-    </header>
+
+        <header>
+            <!-- Byt ut titeln mot en beskuren bild -->
+            <a href="index.html">
+                <img src="brilljantlogo.png" alt="Brilljant Logo" class="logo">
+            </a>
+            <div class="buttons">
+                <a href="terms.html" class="terms-button">Köpvillkor</a>
+                <a href="gallery.html" class="gallery-button">Galleri</a>
+            </div>
+        </header>
+        <style>
+            /* Stil för logotypen */
+            .logo {
+                width: 300px; /* Justera storleken så den inte blir för stor */
+                height: 100px;
+                display: block;
+                margin: 0 auto; /* Centrera logotypen horisontellt */
+            }
+        
+            /* Stil för headern */
+            header {
+                text-align: center; /* Centrera innehållet i headern */
+                padding-bottom: 20px; /* Avstånd under logotypen för balans */
+            }
+        
+            /* Övriga stilar för knapparna */
+            .buttons {
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
+            }
+        </style>
 
     <div class="container">
         <div class="text-content">

@@ -64,8 +64,8 @@
         }
 
         .product img {
-            width: 200px;
-            height: auto;
+            width: 200px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
         }
 
         .total-amount {
@@ -101,10 +101,12 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
+        // Initiera EmailJS med ditt användar-ID
         (function() {
             emailjs.init("yIU9nnaLcM0-rJsI0");  // Ditt EmailJS User ID
         })();
 
+        // Funktion för att skicka e-post och bekräfta beställning
         function confirmPurchase() {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const totalAmount = localStorage.getItem('totalAmount') || '0.00'; // Hämta totalbeloppet
@@ -112,12 +114,13 @@
             if (userInfo) {
                 userInfo.paid = true; // Sätt betalningsstatus
 
+                // E-postdata att skicka via EmailJS
                 const emailParams = {
                     firstName: userInfo.firstName,
                     lastName: userInfo.lastName,
                     email: userInfo.email,
                     product: 'Sport Sunglasses',
-                    price: totalAmount + ' SEK', 
+                    price: totalAmount + ' SEK', // Använd totalbeloppet
                     address: userInfo.address,
                     postalCode: userInfo.postalCode,
                     city: userInfo.city,
@@ -125,26 +128,32 @@
 
                 console.log("Försöker skicka e-post till:", userInfo.email);
 
+                // Skicka e-post via EmailJS
                 emailjs.send('service_rndpsuj', 'template_2eah5vf', emailParams)
                     .then(function(response) {
                         console.log('SUCCESS!', response.status, response.text);
-                        window.location.href = 'thank_you.html'; 
+                        // Navigera till tack-sidan
+                        window.location.href = 'thank_you.html';
                     }, function(error) {
-                        console.error('E-postbekräftelsen misslyckades:', error);
-                        alert("Det gick inte att skicka e-postbekräftelsen. Vänligen försök igen senare.");
+                        console.error('FAILED...', error);
+                        // Logga fel utan alert
+                        console.log("E-postbekräftelsen kunde inte skickas. Kontrollera konsolen för mer info.");
                     });
             } else {
                 console.error("Ingen användarinformation hittades.");
-                alert("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
+                // Logga fel utan alert
+                console.log("Ingen användarinformation hittades. Kontrollera att du har fyllt i alla uppgifter.");
             }
         }
 
+        // När sidan laddas, hämta användardata och produkter från localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const products = JSON.parse(localStorage.getItem('cartItems')) || [];
             const userInfoContainer = document.getElementById('userInfo');
             const totalAmount = localStorage.getItem('totalAmount') || '0.00';
 
+            // Visa användarinformation
             if (userInfo) {
                 userInfoContainer.innerHTML = `
                     <h2>Your Order Information</h2>
@@ -160,6 +169,7 @@
                 userInfoContainer.innerHTML = "<p>No user information found.</p>";
             }
 
+            // Visa endast en produkt i order
             if (products.length > 0) {
                 const productDiv = document.createElement('div');
                 productDiv.classList.add('product');
@@ -170,6 +180,7 @@
                 document.querySelector('.container').insertBefore(productDiv, document.querySelector('.buy-button'));
             }
 
+            // Visa totalbelopp
             const totalAmountDiv = document.createElement('div');
             totalAmountDiv.classList.add('total-amount');
             totalAmountDiv.innerHTML = `Total Amount: ${totalAmount} SEK`;
@@ -185,7 +196,10 @@
 </header>
 
 <div class="container">
-    <div class="order-info" id="userInfo"></div>
+    <div class="order-info" id="userInfo">
+        <!-- User info will be populated here -->
+    </div>
+
     <button class="buy-button" onclick="confirmPurchase()">Confirm Purchase</button>
 </div>
 

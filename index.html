@@ -186,41 +186,29 @@
         .buy-button {
             display: inline-block;
             margin-top: 20px;
-            padding: 15px 30px;
-            background-color: transparent;
-            backdrop-filter: blur(5px);
-            color: rgb(12, 45, 95);
-            border: 2px solid white;
-            text-decoration: none;
-            border-radius: 30px;
+            text-align: center; 
+        }
+
+        .buy-now-btn {
+            padding: 15px 30px; /* Justera padding för att göra knappen lättare att klicka */
+            background-color: transparent; /* Transparent bakgrund */
+            backdrop-filter: blur(5px); /* Suddig effekt bakom knappen */
+            color: rgb(12, 45, 95); /* Textfärg */
+            border: 2px solid white; /* Vit gräns */
+            border-radius: 30px; /* Rundade hörn */
+            font-size: 16px; /* Justera storleken för bättre läsbarhet */
+            cursor: pointer; /* Pekare visar att det går att klicka */
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
+            width: 100%; /* Gör knappen fullt bred */
+            max-width: 250px; /* Maxbredd för att förhindra att den blir för bred */
         }
 
-        .buy-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
+        .buy-button:hover .buy-now-btn {
+            background-color: rgba(255, 255, 255, 0.3); /* Ändra bakgrundsfärgen vid hover */
+            transform: scale(1.1); /* Gör knappen något större vid hover */
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3); /* Lägger till en skugga vid hover */
         }
 
-        .buy-button:hover::before {
-            width: 0;
-            height: 0;
-        }
-
-        .buy-button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
-        }
 
         .product-name {
             font-weight: bold;
