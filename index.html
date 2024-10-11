@@ -28,7 +28,7 @@
             animation: slideDown 1s ease-out;
             position: relative;
             z-index: 10;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Lyxig skugga */
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.5); /* Lyxig skugga */
         }
 
         @keyframes slideDown {
@@ -54,39 +54,9 @@
             display: flex;
             justify-content: center;
             margin-top: 10px;
+        
         }
 
-        .about-button, .gallery-button, .terms-button {
-    background-color: transparent;
-    color: white;
-    text-decoration: none;
-    border-radius: 30px; /* Rundade hörn för ett elegant utseende */
-    padding: 8px 15px; /* Mindre padding för att förminska knappen */
-    font-weight: bold;
-    font-size: 12px; /* Mindre fontstorlek för att passa bättre på mobila enheter */
-    margin: 0 5px; /* Minskat avstånd mellan knapparna */
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    display: inline-block; /* För att knapparna ska radgrupperas korrekt */
-    justify-content: center; /* Centrera knapparna horisontellt */
-}
-
-.about-button:hover, .gallery-button:hover, .terms-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05); /* Minska förstoring vid hover för en mer subtil effekt */
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); /* Mindre skugga vid hover */
-}
-
-/* Media query för mobila enheter */
-@media (max-width: 600px) {
-    .about-button, .gallery-button, .terms-button {
-        font-size: 10px; /* Ännu mindre textstorlek för ännu bättre anpassning */
-        padding: 6px 10px; /* Minska padding ännu mer */
-        margin: 0 3px; /* Ytterligare minskning av avstånd */
-    }
-}
         .container {
             width: 80%;
             margin: 0 auto;
@@ -278,14 +248,13 @@
 <body>
 
     <header>
-        <!-- Byt ut titeln mot en beskuren bild -->
         <a href="index.html">
             <img src="brilljantlogo.png" alt="Brilljant Logo" class="logo">
         </a>
         <div class="button-container"> <!-- Ändrat namn här -->
-            <a href="about.html" class="about-button">About Us</a>
-            <a href="terms.html" class="terms-button">Köpvillkor</a>
-            <a href="gallery.html" class="gallery-button">Galleri</a>
+            <a href="about.html" class="about-button">OM OSS</a>
+            <a href="terms.html" class="terms-button">KÖPVILLKOR</a>
+            <a href="gallery.html" class="gallery-button">GALLERI</a>
         </div>
     </header>    
     <style>
@@ -314,15 +283,10 @@ header {
     background-color: transparent;
     color: white;
     text-decoration: none;
-    border-radius: 30px;
-    padding: 10px 20px;
     font-weight: bold;
     font-size: 14px; /* Standardstorlek */
-    margin: 0 10px;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
+    margin: 0 5px;
+    margin-top: -160px;
 }
 
 /* Media query för mobila enheter */
@@ -340,13 +304,6 @@ header {
         width: 100%; /* Gör knapparna breda */
         box-sizing: border-box; /* Se till att padding och margin räknas in i totalbredden */
     }
-}
-
-/* Stilar för hover-effekter */
-.about-button:hover, .gallery-button:hover, .terms-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
 }
 
     </style>
