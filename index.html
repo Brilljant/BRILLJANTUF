@@ -70,7 +70,7 @@
     overflow: hidden;
     z-index: 1;
     display: inline-block; /* För att knapparna ska radgrupperas korrekt */
-    justify-content: center;
+    justify-content: center; /* Centrera knapparna horisontellt */
 }
 
 .about-button:hover, .gallery-button:hover, .terms-button:hover {
@@ -87,8 +87,6 @@
         margin: 0 3px; /* Ytterligare minskning av avstånd */
     }
 }
-
-
         .container {
             width: 80%;
             margin: 0 auto;
@@ -284,33 +282,73 @@
         <a href="index.html">
             <img src="brilljantlogo.png" alt="Brilljant Logo" class="logo">
         </a>
-        <div class="buttons">
+        <div class="button-container"> <!-- Ändrat namn här -->
             <a href="about.html" class="about-button">About Us</a>
             <a href="terms.html" class="terms-button">Köpvillkor</a>
             <a href="gallery.html" class="gallery-button">Galleri</a>
         </div>
-    </header>
+    </header>    
     <style>
-        /* Stil för logotypen */
-        .logo {
-            width: 300px; /* Justera storleken så den inte blir för stor */
-            height: 100px;
-            display: block;
-            margin: 0 auto; /* Centrera logotypen horisontellt */
-        }
+ /* Stil för logotypen */
+.logo {
+    width: 300px; /* Justera storleken så den inte blir för stor */
+    height: auto; /* Låt höjden anpassas automatiskt */
+    display: block;
+    margin: 0 auto; /* Centrera logotypen horisontellt */
+}
+
+/* Stil för headern */
+header {
+    padding-bottom: 20px; /* Avstånd under logotypen för balans */
+}
+
+/* Övriga stilar för knapparna */
+.button-container {
+    display: flex; /* Använd flexbox */
+    justify-content: flex-start; /* Placera knapparna till vänster på datorer */
+    margin-top: 10px;
+}
+
+/* Knappstilar */
+.about-button, .gallery-button, .terms-button {
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 14px; /* Standardstorlek */
+    margin: 0 10px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Media query för mobila enheter */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column; /* Vertikal layout för mobil */
+        align-items: center; /* Centrera knapparna under logotypen */
+        margin-top: 20px; /* Mer avstånd på mobil */
+    }
     
-        /* Stil för headern */
-        header {
-            text-align: center; /* Centrera innehållet i headern */
-            padding-bottom: 20px; /* Avstånd under logotypen för balans */
-        }
-    
-        /* Övriga stilar för knapparna */
-        .buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
+    .about-button, .gallery-button, .terms-button {
+        font-size: 12px; /* Minska storleken på texten */
+        padding: 8px 16px; /* Minska padding */
+        margin: 5px 0; /* Justera marginalerna */
+        width: 100%; /* Gör knapparna breda */
+        box-sizing: border-box; /* Se till att padding och margin räknas in i totalbredden */
+    }
+}
+
+/* Stilar för hover-effekter */
+.about-button:hover, .gallery-button:hover, .terms-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+}
+
     </style>
     
 
