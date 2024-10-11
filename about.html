@@ -84,55 +84,67 @@
             right: 20px; /* Distance from the right */
         }
 
-        .gallery-button, .terms-button {
-            background-color: transparent;
-            color: white; /* White text */
-            border: 2px solid white; /* White border */
-            text-decoration: none; /* No underline */
-            border-radius: 5px; /* Rounded corners */
-            padding: 5px 10px; /* Button padding */
-            font-weight: bold; /* Bold style */
-            font-size: 12px; /* Smaller text size */
-            margin-left: 10px; /* Space between buttons */
-            transition: background-color 0.3s; /* Transition effect */
-        }
     </style>
 </head>
 <body>
 
     <header>
+        <a href="index.html">
+            <img src="brilljantlogo.png" alt="Brilljant Logo" class="logo">
+        </a>
+        <div class="button-container"> <!-- Ändrat namn här -->
+            <a href="terms.html" class="terms-button">KÖPVILLKOR</a>
+            <a href="gallery.html" class="gallery-button">GALLERI</a>
+        </div>
+    </header>    
+    <style>
+ /* Stil för logotypen */
+.logo {
+    width: 300px; /* Justera storleken så den inte blir för stor */
+    height: auto; /* Låt höjden anpassas automatiskt */
+    display: block;
+    margin: 0 auto; /* Centrera logotypen horisontellt */
+}
 
-        <header>
-            <!-- Byt ut titeln mot en beskuren bild -->
-            <a href="index.html">
-                <img src="brilljantlogo.png" alt="Brilljant Logo" class="logo">
-            </a>
-            <div class="buttons">
-                <a href="terms.html" class="terms-button">Köpvillkor</a>
-                <a href="gallery.html" class="gallery-button">Galleri</a>
-            </div>
-        </header>
-        <style>
-            /* Stil för logotypen */
-            .logo {
-                width: 300px; /* Justera storleken så den inte blir för stor */
-                height: 100px;
-                display: block;
-                margin: 0 auto; /* Centrera logotypen horisontellt */
-            }
-        
-            /* Stil för headern */
-            header {
-                text-align: center; /* Centrera innehållet i headern */
-                padding-bottom: 20px; /* Avstånd under logotypen för balans */
-            }
-        
-            /* Övriga stilar för knapparna */
-            .buttons {
-                display: flex;
-                justify-content: center;
-                margin-top: 10px;
-            }
+/* Stil för headern */
+header {
+    padding-bottom: 20px; /* Avstånd under logotypen för balans */
+}
+
+/* Övriga stilar för knapparna */
+.button-container {
+    display: flex; /* Använd flexbox */
+    justify-content: flex-start; /* Placera knapparna till vänster på datorer */
+    margin-top: 10px;
+}
+
+/* Knappstilar */
+.about-button, .gallery-button, .terms-button {
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px; /* Standardstorlek */
+    margin: 0 5px;
+    margin-top: -160px;
+}
+
+/* Media query för mobila enheter */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: row; /* Horisontell layout för mobil */
+        justify-content: center; /* Centrera knapparna horisontellt */
+        margin-top: 10px; /* Minska avståndet ovanför knapparna */
+    } 
+    
+    .about-button, .gallery-button, .terms-button {
+        font-size: 12px; /* Minska storleken på texten */
+        padding: 6px 12px; /* Minska padding för att göra knapparna mindre */
+        margin: 0 5px; /* Minska marginalen och ställ in horisontell marginal */
+        width: auto; /* Sätt knapparna till automatisk bredd */
+        box-sizing: border-box; /* Se till att padding och margin räknas in i totalbredden */
+    }
+}
         </style>
 
     <div class="container">
